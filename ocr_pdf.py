@@ -6,7 +6,7 @@ import pytesseract
 import numpy as np
 import re
 
-PDF_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/BolognaGrove.pdf"
+PDF_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/Dictionnaire_de_musique_Rousseau"
 OUTPUT_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/"
 OUTPUT_FORMAT = "png"
 OUTPUT_NAME = "scanned.txt"
@@ -24,7 +24,7 @@ def file_info(file_path, out_path):
     return file_name_no_ext, file_ext, results_path
 
 
-def pdf_to_img(file_path, out_path, out_format="jpeg"):
+def pdf_to_img(file_path, out_path, out_format="png"):
 
     file_name_no_ext, file_ext, results_path = file_info(file_path, out_path)
     # check if exists a folder with the same name of the input file. If not, create one.
@@ -41,7 +41,7 @@ def pdf_to_img(file_path, out_path, out_format="jpeg"):
         print("SAVING IMAGE: {}".format(page))
 
 
-def image_processing(input_path, gray_scale=False, remove_noise=False, tresholding=False, dilate=False, erosion=False, edge_detection=False, skew_correction=False):
+def image_processing(input_path, gray_scale=True, remove_noise=True, tresholding=True, dilate=True, erosion=True, edge_detection=True, skew_correction=True):
     kernel = np.ones((5, 5), np.uint8)
     image = cv2.imread(input_path)
     if gray_scale:
@@ -85,9 +85,11 @@ def save_to_txt(out_name, ocr_res):
 if __name__ == "__main__":
     file_name, extension, final_path = file_info(PDF_PATH, OUTPUT_PATH)
     if extension == ".pdf" and final_path:
+        pass
         print("The input file is a .pdf file. Converting to image in {} format.".format(OUTPUT_FORMAT))
         pdf_to_img(PDF_PATH, OUTPUT_PATH, OUTPUT_FORMAT)
     else:
+        # final_path = PDF_PATH
         print("THE DESTINATION FOLDER IS NOT EMPTY. PROCESSING THE FILES CONTAINED IN IT.")
 
     print("PROCESSING FOLDER: {}".format(final_path))
@@ -95,10 +97,16 @@ if __name__ == "__main__":
     ocr_all = ""
 
     for path, dirs, images in os.walk(final_path):
-        for image in sorted(images, key=lambda f: int(re.sub('\D', '', f))):
-            print("PROCESSING IMAGE: {}/{}".format(path, image))
-            # image = image_processing(image)
-            image_ocr = ocr("{}/{}".format(path, image), LANGUAGE)
+        for image in sorted(images, key=lambda f: int(re.sub('\D', '1', f))):
+            filename, file_extension = os.path.splitext(image)
+            if file_extension == ".{}".format(OUTPUT_FORMAT):
+                print("PROCESSING IMAGE: {}/{}".format(path, image))
+
+                image = image_processing("{}/{}".format(path, image))
+                image_ocr = ocr(image, LANGUAGE)
+            else:
+                print("UNABLE TO PROCESS FILE: {}".format(image))
+                continue
 
             ocr_all = ocr_all + "\n" + image_ocr
 
