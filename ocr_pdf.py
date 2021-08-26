@@ -5,21 +5,27 @@ import cv2
 import pytesseract
 import numpy as np
 import re
+from PIL import Image
 
-PDF_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/Dictionnaire_de_musique_Rousseau"
+PDF_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/multilengual.pdf"
 OUTPUT_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/"
 OUTPUT_FORMAT = "png"
 OUTPUT_NAME = "scanned.txt"
-LANGUAGE = 'fra'
+LANGUAGE = 'ita'
 
 
 def file_info(file_path, out_path):
     """Takes as input the file input path and the output path and analyses the file name and the file extension.
     It also set a destination folder for the conversion from pdf to image."""
-    file_name = ntpath.basename(file_path)
-    file_name_no_ext = os.path.splitext(file_name)[0]
-    file_ext = os.path.splitext(file_name)[1]
-    results_path = out_path + file_name_no_ext
+    if file_path == "" or file_path is None:
+        results_path = out_path
+        file_ext = None
+        file_name_no_ext = ntpath.basename(out_path)
+    else:
+        file_name = ntpath.basename(file_path)
+        file_name_no_ext = os.path.splitext(file_name)[0]
+        file_ext = os.path.splitext(file_name)[1]
+        results_path = out_path + file_name_no_ext
 
     return file_name_no_ext, file_ext, results_path
 
@@ -41,9 +47,13 @@ def pdf_to_img(file_path, out_path, out_format="png"):
         print("SAVING IMAGE: {}".format(page))
 
 
-def image_processing(input_path, gray_scale=True, remove_noise=True, tresholding=True, dilate=True, erosion=True, edge_detection=True, skew_correction=True):
+def image_processing(input_path, gray_scale=False, remove_noise=False, tresholding=False, dilate=False, erosion=False,
+                     edge_detection=False, skew_correction=False):
     kernel = np.ones((5, 5), np.uint8)
-    image = cv2.imread(input_path)
+    # image = cv2.imread(input_path)
+    image = Image.open(input_path)
+    # pytesseract.image_to_string(Image.open(''))
+    # image = pytesseract.image_to_string(input_path)
     if gray_scale:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     if remove_noise:
@@ -72,6 +82,7 @@ def image_processing(input_path, gray_scale=True, remove_noise=True, tresholding
 
 def ocr(processed_image, language):
     custom_config = r'--oem 3 --psm 6'
+    # custom_config = r'-l fra+eng+ita+spa --psm 6'
     ocr_output = pytesseract.image_to_string(processed_image, config=custom_config, lang=language)
     return ocr_output
 
@@ -84,8 +95,7 @@ def save_to_txt(out_name, ocr_res):
 
 if __name__ == "__main__":
     file_name, extension, final_path = file_info(PDF_PATH, OUTPUT_PATH)
-    if extension == ".pdf" and final_path:
-        pass
+    if extension == ".pdf" and not os.path.isdir(final_path):
         print("The input file is a .pdf file. Converting to image in {} format.".format(OUTPUT_FORMAT))
         pdf_to_img(PDF_PATH, OUTPUT_PATH, OUTPUT_FORMAT)
     else:
@@ -102,8 +112,9 @@ if __name__ == "__main__":
             if file_extension == ".{}".format(OUTPUT_FORMAT):
                 print("PROCESSING IMAGE: {}/{}".format(path, image))
 
-                image = image_processing("{}/{}".format(path, image))
-                image_ocr = ocr(image, LANGUAGE)
+                # image = image_processing("{}/{}".format(path, image))
+                # image_ocr = ocr(image, LANGUAGE)
+                image_ocr = pytesseract.image_to_string(Image.open("{}/{}".format(path, image)))
             else:
                 print("UNABLE TO PROCESS FILE: {}".format(image))
                 continue
