@@ -1,14 +1,14 @@
-from pdf2image import convert_from_path
-import os
 import ntpath
-import cv2
-import pytesseract
-import numpy as np
+import os
 import re
-from PIL import Image
 
-PDF_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/multilengual.pdf"
-OUTPUT_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/"
+import cv2
+import numpy as np
+import pytesseract
+from pdf2image import convert_from_path
+
+PDF_PATH = ""
+OUTPUT_PATH = ""
 OUTPUT_FORMAT = "png"
 OUTPUT_NAME = "scanned.txt"
 LANGUAGE = 'ita'
@@ -50,10 +50,8 @@ def pdf_to_img(file_path, out_path, out_format="png"):
 def image_processing(input_path, gray_scale=False, remove_noise=False, tresholding=False, dilate=False, erosion=False,
                      edge_detection=False, skew_correction=False):
     kernel = np.ones((5, 5), np.uint8)
-    # image = cv2.imread(input_path)
-    image = Image.open(input_path)
-    # pytesseract.image_to_string(Image.open(''))
-    # image = pytesseract.image_to_string(input_path)
+    image = cv2.imread(input_path)
+    # image = Image.open(input_path)
     if gray_scale:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     if remove_noise:
@@ -81,9 +79,9 @@ def image_processing(input_path, gray_scale=False, remove_noise=False, tresholdi
 
 
 def ocr(processed_image, language):
-    custom_config = r'--oem 3 --psm 6'
-    # custom_config = r'-l fra+eng+ita+spa --psm 6'
-    ocr_output = pytesseract.image_to_string(processed_image, config=custom_config, lang=language)
+    # custom_config = r'--oem 3 --psm 6'
+    custom_config = r'-l fra+eng+ita+spa+de --psm 6'
+    ocr_output = pytesseract.image_to_string(processed_image, config=custom_config)
     return ocr_output
 
 
@@ -112,9 +110,9 @@ if __name__ == "__main__":
             if file_extension == ".{}".format(OUTPUT_FORMAT):
                 print("PROCESSING IMAGE: {}/{}".format(path, image))
 
-                # image = image_processing("{}/{}".format(path, image))
-                # image_ocr = ocr(image, LANGUAGE)
-                image_ocr = pytesseract.image_to_string(Image.open("{}/{}".format(path, image)))
+                image = image_processing("{}/{}".format(path, image))
+                image_ocr = ocr(image, LANGUAGE)
+                # image_ocr = pytesseract.image_to_string(Image.open("{}/{}".format(path, image)))
             else:
                 print("UNABLE TO PROCESS FILE: {}".format(image))
                 continue
