@@ -80,7 +80,7 @@ def image_processing(input_path, gray_scale=False, remove_noise=False, tresholdi
 
 def ocr(processed_image, language):
     # custom_config = r'--oem 3 --psm 6'
-    custom_config = r'-l fra+eng+ita+spa+de --psm 6'
+    custom_config = r'-l fra+eng+ita+spa+deu --psm 6'
     ocr_output = pytesseract.image_to_string(processed_image, config=custom_config)
     return ocr_output
 
