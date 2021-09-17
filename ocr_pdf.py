@@ -7,37 +7,63 @@ import numpy as np
 import pytesseract
 from pdf2image import convert_from_path
 
-PDF_PATH = ""
-OUTPUT_PATH = ""
-OUTPUT_FORMAT = "png"
-OUTPUT_NAME = "scanned.txt"
-LANGUAGE = 'ita'
+INPUT_PATH = "/Users/andreapoltronieri/Documents/Assegno/Polifonia/WP4/Books/L'arpa"  # accepts pdf files, png files,
+# and folders containing multiple png files
+OUTPUT_PATH = ""  # only needed if the give input is in .pdf format
+OUTPUT_FORMAT = "png"  # only needed if the input file is a pdf and hence needs to be converted
+OUTPUT_NAME = "arpa_010.txt"  # name of the output file. It must be a txt file.
+LANGUAGE_MODE = "mono"  # set this parameter to "multi" if working with more tha n one language, set "mono" otherwise
+LANGUAGE = "ita"  # if working with LANGUAGE_MODE = "single" set this parameter
+MULTIPLE_LANG = "fra+eng+ita+spa+deu"  # if working with LANGUAGE_MODE = "multi" set this parameter.
+# Languages must be concatenated using the "+" symbol. No spaces required.
+
+# Preprocessing parameters
+GRAY_SCALE: bool = True
+REMOVE_NOISE: bool = False
+TRESHOLDING: bool = False
+DILATE: bool = False
+EROSION: bool = False
+EDGE_DETECTION: bool = False
+SKEW_CORRECTION: bool = False
+
+# OCR parameters
+PAGE_SEGMENTATION_MODE: int = 6
+OCR_ENGINE_MODE: int = 3
 
 
 def file_info(file_path, out_path):
     """Takes as input the file input path and the output path and analyses the file name and the file extension.
     It also set a destination folder for the conversion from pdf to image."""
-    if file_path == "" or file_path is None:
-        results_path = out_path
+    if (file_path == "" or file_path is None) and (out_path == "" or out_path is None):
+        raise NameError("Directories Not Set")
+    elif os.path.isdir(file_path):
+        results_path = file_path
         file_ext = None
-        file_name_no_ext = ntpath.basename(out_path)
-    else:
+        file_name_no_ext = ntpath.basename(file_path)
+    elif file_path.endswith(".pdf"):
         file_name = ntpath.basename(file_path)
         file_name_no_ext = os.path.splitext(file_name)[0]
         file_ext = os.path.splitext(file_name)[1]
         results_path = out_path + file_name_no_ext
+    elif file_path.endswith(".png"):
+        file_name = ntpath.basename(file_path)
+        file_name_no_ext = os.path.splitext(file_name)[0]
+        file_ext = os.path.splitext(file_name)[1]
+        results_path = file_path
+    else:
+        raise NameError("Input File Format Not Valid")
 
     return file_name_no_ext, file_ext, results_path
 
 
 def pdf_to_img(file_path, out_path, out_format="png"):
-
     file_name_no_ext, file_ext, results_path = file_info(file_path, out_path)
     # check if exists a folder with the same name of the input file. If not, create one.
     if not os.path.isdir(results_path):
         os.makedirs(results_path)
     else:
         pass
+
     pages = convert_from_path(file_path, 500)
 
     page_num = 0
@@ -47,11 +73,11 @@ def pdf_to_img(file_path, out_path, out_format="png"):
         print("SAVING IMAGE: {}".format(page))
 
 
-def image_processing(input_path, gray_scale=False, remove_noise=False, tresholding=False, dilate=False, erosion=False,
+def image_processing(input_path, gray_scale=True, remove_noise=False, tresholding=False, dilate=False, erosion=False,
                      edge_detection=False, skew_correction=False):
     kernel = np.ones((5, 5), np.uint8)
     image = cv2.imread(input_path)
-    # image = Image.open(input_path)
+
     if gray_scale:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     if remove_noise:
@@ -78,10 +104,19 @@ def image_processing(input_path, gray_scale=False, remove_noise=False, tresholdi
     return image
 
 
-def ocr(processed_image, language):
-    # custom_config = r'--oem 3 --psm 6'
-    custom_config = r'-l fra+eng+ita+spa+deu --psm 6'
-    ocr_output = pytesseract.image_to_string(processed_image, config=custom_config)
+def ocr(processed_image, language_mode, oem, psm, multilang="", language=""):
+    if not psm:
+        raise NameError("PAGE_SEGMENTATION_MODE not set")
+    if language_mode == "multi" and multilang != "":
+        custom_config = r'-l {} --psm {}'.format(multilang, psm)
+        ocr_output = pytesseract.image_to_string(processed_image, config=custom_config)
+    elif language_mode == "mono" and language != "":
+        if not oem:
+            raise NameError("OCR_ENGINE_MODE not set")
+        custom_config = r'--oem {} --psm {}'.format(oem, psm)
+        ocr_output = pytesseract.image_to_string(processed_image, config=custom_config, lang=language)
+    else:
+        raise NameError("Language Setting Error")
     return ocr_output
 
 
@@ -92,31 +127,44 @@ def save_to_txt(out_name, ocr_res):
 
 
 if __name__ == "__main__":
-    file_name, extension, final_path = file_info(PDF_PATH, OUTPUT_PATH)
+    file_name, extension, final_path = file_info(INPUT_PATH, OUTPUT_PATH)
     if extension == ".pdf" and not os.path.isdir(final_path):
         print("The input file is a .pdf file. Converting to image in {} format.".format(OUTPUT_FORMAT))
-        pdf_to_img(PDF_PATH, OUTPUT_PATH, OUTPUT_FORMAT)
+        pdf_to_img(INPUT_PATH, OUTPUT_PATH, OUTPUT_FORMAT)
+    elif extension == ".png":
+        pass
     else:
-        # final_path = PDF_PATH
-        print("THE DESTINATION FOLDER IS NOT EMPTY. PROCESSING THE FILES CONTAINED IN IT.")
-
-    print("PROCESSING FOLDER: {}".format(final_path))
+        print("The input corresponds to a folder. Processing files contained in it.")
 
     ocr_all = ""
 
-    for path, dirs, images in os.walk(final_path):
-        for image in sorted(images, key=lambda f: int(re.sub('\D', '1', f))):
-            filename, file_extension = os.path.splitext(image)
-            if file_extension == ".{}".format(OUTPUT_FORMAT):
-                print("PROCESSING IMAGE: {}/{}".format(path, image))
+    if extension == ".pdf" or extension is None:
+        print("PROCESSING FOLDER: {}".format(final_path))
+        for path, dirs, images in os.walk(final_path):
+            for image in sorted(images, key=lambda f: int(re.sub('\D', '1', f))):
+                filename, file_extension = os.path.splitext(image)
+                if file_extension == ".{}".format(OUTPUT_FORMAT):
+                    print("PROCESSING IMAGE: {}/{}".format(path, image))
 
-                image = image_processing("{}/{}".format(path, image))
-                image_ocr = ocr(image, LANGUAGE)
-                # image_ocr = pytesseract.image_to_string(Image.open("{}/{}".format(path, image)))
-            else:
-                print("UNABLE TO PROCESS FILE: {}".format(image))
-                continue
+                    image = image_processing("{}/{}".format(path, image), gray_scale=GRAY_SCALE,
+                                             remove_noise=REMOVE_NOISE, tresholding=TRESHOLDING, dilate=DILATE,
+                                             erosion=EROSION, edge_detection=EDGE_DETECTION,
+                                             skew_correction=SKEW_CORRECTION)
+                    image_ocr = ocr(image, LANGUAGE_MODE, PAGE_SEGMENTATION_MODE, OCR_ENGINE_MODE,
+                                    MULTIPLE_LANG, LANGUAGE)
+                else:
+                    print("UNABLE TO PROCESS FILE: {}".format(image))
+                    continue
 
-            ocr_all = ocr_all + "\n" + image_ocr
+                ocr_all = ocr_all + "\n" + image_ocr
+    else:
+        print("PROCESSING IMAGE: {}".format(final_path))
+        print(final_path)
+        image = image_processing(final_path, gray_scale=GRAY_SCALE, remove_noise=REMOVE_NOISE,
+                                 tresholding=TRESHOLDING, dilate=DILATE, erosion=EROSION,
+                                 edge_detection=EDGE_DETECTION, skew_correction=SKEW_CORRECTION)
+        image_ocr = ocr(image, LANGUAGE_MODE, PAGE_SEGMENTATION_MODE, OCR_ENGINE_MODE, MULTIPLE_LANG, LANGUAGE)
+        ocr_all = image_ocr
 
-    save_to_txt(file_name + ".txt", ocr_all)
+    save_to_txt(OUTPUT_NAME, ocr_all)
+    print("\nOCR completed.\n\nSaved file as: {}".format(OUTPUT_NAME))
