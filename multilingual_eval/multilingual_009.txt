@@ -1,0 +1,283 @@
+FOREWORD
+
+The appearance,of the “Polyglot Dictionary of Musical Terms” (Terminorum Musicae Index
+Septem Linguis Redactus”) brings to its comelusion an undertaking that, for various reasons which
+need not be enlarged upon here, has taken an unusually lengthy time in preparation. The plan to
+produce a polyglot dictionary (i.e. a glossary, it possible without definitions) im the five languages
+German, English, French, Italian and Spanish, as the precursor of a large comprehensive dictionary
+of this kind im 18 to 20 languages, originated iim the contest of the seventh international musicolog-
+ical congress of the International Musicological Society (Cologne, Jume, 1958), mearly two decades
+ago. During the session of the directorial committee of the International Musicological Society
+at the end of April, 1959, the decision was takem to put this plan into effect.
+
+The International Musicological Society was joined as co-pulblisher by the International
+Association of Musie Librarians, and, as in the case of the “Répertoire International des Sources
+Musicales” GRISM), an international mixed commission with responsibility for the dictionary was
+set up irom members of the two societies, with Vladimir Fédorov as chairman.
+
+Work on the uadertaking had been in progress for some time when, in 1966, it became known
+that the-publishers to the Hungarian Academy of Sciences (Altadémiai Kiadó) of Budapest were
+also intending to boring out a multilingual specialist dictionary of music. Negotiations with the
+Hungarian publishers led to the agreement that two additional languages, Russian and Hungarian,
+should be added to the five languages originally envisaged, and that the responsibilities should
+be Shared, both for the editorial work (by Horst Leuchtmann and the dictionary editors of tie .
+Hungarian publishers) and the actual publication (oy Akadémiai Kiadé and Baremreites-Verlag)..
+The various stages of the joint project stretched over a decade until in early summer 1976 it was
+brought to a conclusion with a final editorial session in Budapest.
+
+This “Polyglot Dictionary of Musical Terms”, the result of an international co-operative
+effort, is the first of its kind, apart from individual bilingual publications such as Langemscheidt’s
+German—JEnglish/lEnglish—German Music Dictionary by Horst Leuchtmann and Philippine
+Schick (Berlin/Munich 1964) and the German— iRussian/Russian—German Music Dictionary
+by G. Balter (Moscow/Leipzig 1976). Being am experiment, this dictionary will certainly stand im
+need of amplification, not least through the addition of further languages — a proposition that
+cam perhaps be put into effect later, when this first attempt has proved its value.
+
+The thanks of the Imternational Mixed Commission are due above ail to the editor-in-chief,
+Dr. Horst Leuchtmann of Munich. He has compiled the list of principal terms amd Mas also been
+responsible for the German language. The dictionary is laid out according to an international
+alphabet: it must be admitted, however, that German takes precedence. Ilorst Leuchtmann is
+German and carried out the task of collecting the musical terms in his mother tomgue. It seemed
+therefore appropriate to tabulate in German spelling all those terms winich did mot originate im
+any of the participating languages or of which the linguistic origin was so far uncertain.
+
+The thanks of the International Mixed Commission are also due to the translators: John A.
+Parkinson (English), Nicole Wild (French), Rossana Dalmonte (Italian), Daniel Devoto (Spanish),
+Andras Székely (Hungarian), Gita Balter and Natalya Malina (Russian). Besides these seven ladies
+and gentlemen, who have been responsible throughout for their own language, the assistance of
+the following must be acknowledged with thanks: lam Spink (Sydmey, Australia), Eric Gross
+(Sydney, Australia), Michael Ochs (Boston, Mass.), Prof. Dr. Paul Braimard (West Newton/Mass.),
+Bernard Bardet (Choisy-le-Roi, France), Prof. Dr. Fausto Broussard (Milam, Italy), Prot. Dr.
+Miguel Querol (Barcelona, Spain), and Narcis Bonet (Boulogne-sur-Seine, France). In addition,
+thanks are due to all those experts who have scrutinised the lists of principal terms and contributed
+
+10
+additional terms from their special field of study: Prof. Dr. Kurt Blaukopt, Vienna (Sociology of
+Music), Mine la Comtesse Geneviève de Chambure + (Musical Instruments), Prof. Dr. Carl Dall
+haus, Berlin (Aestheties of Music), Peter Keller, Zürich (History of Music), Prof. Dr. Bruno Nettl,
+Urbana, Iinois (éthino-musicology), and Prof. Sir Jack Allan Westrup + (Theory of Musie).
+
+It was mot always easy to find collaborators for work om this great undertaking, which
+has demanded idealism anc time from all concerned. Our experience suggests that itt willl loe
+easier tO Obtain authoritative advice, mow that the dictionary has come before the publie. The
+International Mbxed Commiesion therefore asks alll users of the dictionary to communicate alll
+
+corrections and improvements to Dr. Horst Leuchimann (address: Markgrafensirasse 50, D-6000
+Manchen 82).
+Kassel, Autumn 1977
+For the International Mid Commission
+Wolfgang Rehm
+
+PRÉFACE
+
+La presentation de ce «Dictionnaire polyglotte de la terminologie musicale ((Terminorum
+Musicae lndex Septem Linguis Redactus) constitue la phase finale d’une entreprise qui, pour
+diverses raisons impossibles à expliciter ici, a connu une période préparatoire exceptionneliement
+longues Lors du Vilème Congrès International de Musicologie de la Société Internationale de
+Musicologie (Cologne, juin 1953), il y a dome près de deux décennies, on envisagea de faire paraître
+um dictionnaire polyglotte (c'est-à-dire un glossaire de préférence sans définitions) dans les cina
+langues suivantes: allemand, anglais, français, flalien et espagnol, qui ouvrirait la voie à um
+dictionnaire du mème genre de plus grande envergure, en 18 à 20 langues. Lors de la session
+directoriale de la Société Internationale de Musicologie, fin avril 1959, on décida finalement de
+tramstormer ce projet en réalité,
+
+L'Association [Internationale des Bibliothèques Musicales se joignit comme éditeur à la
+Société Imuermationale de Musicolagie et, tout comme pour le «Répertoire International des Sources
+Miusicaleso (RISM), les membres des deux associations eréérent une Commission internationale
+misate responsabile de ce dictionnaire, sous Îla présidence de V'Iadimir Fédorov.
+
+PANNE End commencé depuis longtemps lorsaqu’en 1965 on apprit que la Maison
+d'Édition de l’Académie des Sciences de Hongrie (Akadémiai Kiadé) de Budapest envisageait
+également de faire paraître un dictionnaire de musique en plusieurs langues. Les contacts établis
+avec l'éditeur hongroïs permirent d'arriver à um accord selon lequel deux nouvelles langues
+venaient s'ajouter aux cina langues prévues initialement: le russe et le hongrois. Îl fut également
+décidé de rédiger ensemble le dictionnaire polyglotte (Hlorst Leuchtmann et la rédaction du diction-
+naire de l'éditeur de Budapest) et d'en faire une édition commune (Akadémiai Kiado et Bâren-
+reiter-Verlag). Les travaux en commun se sont étirés en plusieurs phases sur plus d’une décenmie
+et ont pu être conclus lors d’une ultime session de rédaction à Budapest, au début de l'été 1976.
+
+Ce «Dictionnaire polyglette de la terminologie musicale», produit d’une bonne collaboration
+internationale, est le premier de ce genre sí l’on laisse de cûté les avelques parutions bilingues
+telles que par exemple le Dictionnaire de musique Langenscheidt anglais-allemand/allemande
+anglais de Horst Leuchimann et Philippine Schick (BerlinfMuniich 1964) ou le Dictionnaire de
+musique allemand-russe/russe-allemand de GC. Balter (Moscou/Leïpzig 1976). En tant qu'exe
+périence, ce dictionnaire aura sans doute besoin d'être complété, en s ouvrant éventuellement
+à d'autres langues — projet qui se réalisera peut-être lorsque cette première tentative aura fait
+ses DICUVES,
+
+La Commission internationale mixte remercie en premier lieu le rédacteur en chef, Dr. Horst
+Leuchtmann, Munich: il a élaboré la liste fondamentale de mots-clés et est en même temps res-
+ponsable de la langue allemande. Le dictionnaire est établi selon un alphabet international; toute-
+fois l'allemand — il faut bien l'avouer — connaît une certaine prépondérance: Horst Leuchtmann
+est Allemand et ses travaux ont été effectués dans sa langue maternelle. C’est la raison pour
+laquelle tous les termes qui originellement n'appartiemment à aucune des langues de ce dicton
+noire, ou dont l’origine linguistique n'est pas ou mal connue, sont donnés ici dans l'orthographe
+allermamoe.
+
+La Commission intemationale mixte remercie également Îles traducteurs: John À. Parkinson
+(anglais), Nicole Wild (francais), Rossana Dalmonte (italien), Damiel Devoto (espagnol), András
+Székely (hongrois), Gita Balter et Natalia Malina (russe), Outre ces sept persommes qui sont res-
+
+ectivement responsablesde leur langue, nous savons également gré à lan Spink (Sydney/Australie),
+ae Gross (Sydney/Australie), Michael Ochs (BostomMass.), Prof. Dr. Paul Braimard (West
+Newton/Mass.), Bernard Bardet (Choisy-le-Roi/Framce), Prof. Dr. Fausto Broussard (Milan/
+
+12%
+
+Italie), Prof. Dr. Miguel Querol (Barcelone/Espagne) et Narcís Bonet (Boulogne-sur-Seine/France)
+pour l’aide précieuse qu'ils ont apportée. Nous exprimons également notre reconnaissance envers
+les experts qui ont révisé la liste fondamentale de mots-clés et l'ont complétée par des termes |
+propres à leur domaine spécial: Prof. Dr. Kurt Blaukopf, Vienne (sociologie musicale), Madame
+la Comtesse Geneviève de Chambure + (science instrumentale), Prof. Dr. Carl Dahlhaus, Berlin
+(esthétique musicale), Peter Keller, Zurich (histoire de la musique), Prof. Dr. Bruno Nettl,
+Ürbana/linois (ethnologie musicale) et Prof. Dr. Sir Jack Allan Westrup + (théorie musicale).
+
+(l ma pas toujours été aisé de trouver des collaborateurs pour um travail d’ume telle envergure,
+qui recquiert, de tous, une grande part d'idéalisme et de temps. L'expérience prouve qu'il sera
+plus facile, maintemamt que le Dictiommaire est soumis au public, d'obtemir des conseils campétents.
+La Commission internationale mixte prie donc les utilisateurs de ce Dictionnaire de faire part
+des corrections et améliorations mécessaires au Dr. Horst Leuchtmann (adresse: Markwratien-
+straBe 50, D-8000 München 82).
+Cassel, automne 1977
+
+Pour la Commission internationale miscte
+Wolfgang Rehm
+
+0
+PREFAZIONE
+SS
+
+Con la stampa del «Dizionario poliglotto dei termini musicali» («Terminorum Musicae Imdex
+Septem Linguis IRedactus») si comclude una impresa che ha richiesto, per molteplici ragioni, um
+Periodo dilavoro insolitamente lungo. Sono trascorsi oramai due decemmni da quando, durante il VII
+congresso dell Associazione Internazionale di Musicologia (Colomia 1958), fu avanzata la proposta
+di pubblicare un dizionario poliglotto (ovvero un glossario senza definizioni) in cinque lingue:
+tedesco, inglese, iramcese, italiano e spagnolo, che potesse amche servire, im seguito, comme base di
+partenza per um dizionario di maggiore mole, comprendente dalle 13 alle 20 lingue. Durante la
+seduta del direttorio dell’ Associazione Internazionale di Musicologia, alla fine di aprile del 1959,
+si decise la realizzazione del piano.
+
+AN? Associazione Intermazionale di Musicologia sì aggiunse come co-editrice l'Unione Inter=
+nazionale delle Biblioteche Musicali, e così come era già avvenuto per il «Répertoire International
+des Sources Musicales (RISM), soci delle due associazioni fondarono uma Commission interna-
+tionale mixte, responsabile per il dizionario, con Vladimir Fédorov alla presidenza.
+
+[ lavori erano gia in corso da tempo, quando nel 1966 si apprese che la casa editrice dell’Acca-
+demia Ungherese per le Scienze (Akadémiai Kiadé) di Budapest, intendeva pubblicare anch'essa
+un dizionario poliglotto della musica. Trattative con la casa editrice ungherese portarono all’accordo
+di aggiungere due lingue — il russo e l’ungherese — alle-cinque previste, e di redigere assieme
+jl dizionario poliglotte (Horst Leuchtmann e la redazione per il dizionario della casa editrice a |
+Budapest) e pulbbblicarlo (Akadémiail Kiadé e Barenreiter-Verlag). Il lavoro collettivo sì protrasse
+com varie fasi per un decennio e sì è comcluso con l’ultima seduta di redazione a Budapest nella
+estate del 1970.
+
+I «Dizionario poliglotto dei termini musicali», risultato di uma buona collaborazione intere
+nazionale, è il primo del genere, a prescindere da edizioni bilingue quali per es.: Langenscheidts
+Fachwôrterbuch Musik Englisch—Deutsch/Deutsch— Englisch di Horst Leuchtmann e Philippine
+Schick (Berlino/Monaco 1964) e dal Fachwérterbuch Musik Deutsch— Russisch/Russiseh— Deutsch
+di G. Balter (Mosca/Lipsia 1976). Essendo il dizionario un esperimento, potrá subire alcune ag=-
+giunte, © mon per ultimo, l'inclusione di altre lingue: un progetto che potrà essere realizzato solo
+dopo l'affermazione di questo primo.
+
+La Commission internationale mixte ringrazia in primo luogo il redattore capo Dott. Horst
+Leuchimann di Monaco: egli ha compilato la lista base delle voci, ed € contemporaneamente anche |
+il responsabile per la lingua tedesca. Il dizionario è concepita secando un alfabeto internazionale:
+ugualmente la lingua tedesca, sia comcesso, ha la priorità: Horst Leuchitmann è tedesco e
+ha cômpilato la raccolta dei termini partendo dalla sua lingua. IDI conseguenza riporta in ortografia
+tedesca tutti quel termini che nom appartengono ad una delle lingue qui trattate, oppure la cui -
+origine linguistica non à sicura © non ben chiara. |
+
+I ringraziamento della Commission internationale mixte va anche al traduttori: John A.
+Parkinson (inglese), Nicole Wild (francese), ¡Rossana Dalmonte (italiano), Daniel Devoto (spagnola),
+Andras Székely (ungherese), Gita Balter e Natalia Malina (russo). Oltre questi sette collaboratori
+responsabili per la propria parte, si ringraziano anche per l’aiuto dato: Ian Spink (Sydney/Au-
+stralia), rie Gross (Sydney/Australia), Michael Ochs (Boston/Mass.), Prof. Dott. Paul Brainard
+
+(West Newtom/Mass.), Bernard Bardet (Choisy-le-Roi, Francia), Prof. Dott. Fausto Broussard (Mie
+lamo/fitalia), Prof. Dott. Miguel Querol (Barcellona/Spagma) e Narcis Bonet (Boulogne-sur-Seine/
+Francia). Siano ringraziati anche tutti gli esperti che hanno controllato e completato le liste della
+propria materia: Prof. Dott. Kurt Blaukopf, Vienna (sociologia musicale), Mme la Comtesse
+Geneviève de Chambure + (strumenti musicali), Prof. Dott. Carl Dahihaus, Berlino (estetica
+
+| 0
+145
+musicale), Peter Keller, Zurigo (storia della musica), Prof. Dott, Brumo Nettl, Urbama/Minois
+(etnologia musicale) e Prof. Dott. Sir Jack Allam Westrup + (teoria della musica).
+
+Per lo svolgimento del lavoro, che Na richiesto da tutti idealismo e tempo, mom era sempre
+facile trovare il collaboratore: ara che il dizionario è accessibile ai pubblico, sarà più facile rie
+cevere i consigli degli esperti. La Commission intermationale mixte prega di comunicare evene
+tuali correzioni 0 aggiunte al Dott. Horst Leuchtmann (indirizzo: Markerafenstrate 50, ID-S0T9
+München 82).
+
+Kassel, autuano 1977
+Per la Commission intemmationale mixte
+| Wolfgang Rehon
+
+PREFACIO
+
+Con este «Diccionario poligloto de la terminologia musical» (Terminorum Musicae Index
+Septem Linguis Redactus) llega a su términe la ejecuciém de um proyecto cuya realizacion exigio
+—— por diversas razones que no hacen al caso ~ una consideralole suma de trabajos preliminares
+que retrasaron su aparición: hace casí veínte años, durante el séptimo congreso de la Sociedad
+Internacional de Musicologia celebrado em Colonia en junio de 1958, se encaró la redacción de un
+diccionario poligloto — es decír, um vocabulario, en lo posible sin definiciomes —, em cimco lenguas
+(aleman, inglés, francés, italiano y español), que sería la primera etapa hacía la publicación de un
+gran diccionario del mismo tipo en dieciocho o veinte lenguas. La decisiôn de realizar este proyecta
+se tomo durante la reumiòn del Direetorio de la Sociedad Imtermacional de Musicologia a fimes de
+abril de 1959.
+
+La Asociacion [Internacional de Bibliotecas Musicales se adhiriò, como co-editor, a la
+Sociedad Internacional de Musicologia, v se creò — como para el Répertoire International
+des Sources Musicales (RISM) — una Comisión Internacional Mixta que incluía miembros de
+ambos organismos y que tomaba bajo su responsabilidad este diccionario, presidida por
+Vladimir Fédorov.
+
+En 1966, cuando ei trabajo estaba ya muy adelantado, se supo que la Academia de Ciencias
+de Budapest (Akadémiai Kiadé) habia proyectado um diccionario semejante. De acuerdo con el
+editor húngaro se decidió agregar, a las cinco lenguas previstas imicialmente, otras dos (ruso y
+húngaro), y emprender conjuntamente tanto la redacción del diccionario poligloto (Hlorst Leucint-
+mann y la redacciôn residente en Budapest) como su ediciôn (Akadémiai Kiado y Bärenreiter). Las
+diferentes etapas del trabajo en comin cubrieron un decenio, y la redaccién solo pudo finalizarse en
+la primavera de 1976, durante una ultima reunion en Budapest.
+
+Este «Diccionario poligloto de la terminologia musical», producto de una cordial colaboración
+internacional, es el primero de su tipo, salvando algunas publicaciones bilinglies aisladas, como el
+diccionario musical inglés-alemán y alemán-inglés de Horst Leuchtmann y Philippine Schick |
+
+| (Berlin-Munich, 1964) o el diccionario musical alemdn-ruso y ruso-aleman de G. Balter (Moscu—
+Leipzig, 1976). En su caradcter de primera tentativa, este diccionario deberà seguramente comple-
+tarse, en particular por la adjuncién de otras lenguas: proyecto que quizás pueda imiciarse cuando
+nuestra publicación haya dado sus primeros frutos.
+
+La Comisión Internacional Mixta quiere hacer presente su agradecimiento al redactor en Jete
+Horst Leuchtmann, de Munich, que estableció la lista de entradas y asumió la responsabilidad de la
+parte alemana. La lista sígue un orden alfabético intermacional, aunque debe reconocerse que el
+alemán ha ocupado un lugar importante, ya que el redactor la formuló en su lengua materna; por
+ello, ha parecido légico adoptar la grafia alemana para todos los términes procedentes de una
+lengua distinta de las representadas aquí, y para aquéllos cuya ascendencia linglistica mo se ha
+establecido ain. La Comisién Intermacional Mixta agradece tambiém su colaboracién a los traduc-
+tores: John A. Parkinson (inglés), Nicole Wile (francés), Rossana Dalmonte (italianc), Daniel
+Devoto (español), Székely András (húngaro), Gita Balter y Natalia Malina (ruso), y también la
+ayuda prestada por lan Spink (Sidney, Australia), Eric Gross (Sidney, Australia), Michael Ochs
+(Boston, Mass.), el Protesor Paul Brainard (est Newton, as ed (os Resol
+Francia), el Profesor Fausto Broussard (Milan, Italia), el Profesor Miguel Querol (Barcelona,
+España) y Narcis Bonet (Boulogme-sur-Seime, Francia). Queremos además testimoniar muestra
+gratitud a todos los especialistas que han revisado las diferentes entradas y sugerido algunas adicio-
+mes: el Profesor Kurt Blauxopt, de Viena (sociología musical), la Condesa Geneviéye de Chambure y
+(instrumentoiagia), el Profesor Carl Dahlhaus, de Berlin (estética musical), Peter Keller, de Zurich
+
+los
+
+(historia de la musica), el Profesor Bruno Netti, de Urbana, IL (etnomusicologia) y el Profesor Sir
+Jack Allan Westrup + (teoria de la musica).
+
+| Encontrar los colaboradores adecuados para esta empresa, que exigia de cada uno de ellos
+idealismo y tiempo, no ha sido tarea fácil. Sabemos de antemano que será más factible, ahora que
+el diccionario sale a la luz, obtener el auxilio de otros especialistas. La Comisión Internacional
+Mista ruega a todo colaborador eventual enviar sus sugerencias o correcciones al sefor iorst Leuchte
+mann: su direccién ess: Markgrafenstrasse 50, D-S000 Miinchen 82, Alemania Federal.
+Kassel, atoñe de 1977. iEm nombre de la Comision [Internacional Mista
+
+one clara
+
