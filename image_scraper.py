@@ -1,12 +1,14 @@
-import requests
-from bs4 import BeautifulSoup
 import urllib.request
 
-EX_PATH: str = 'https://www.internetculturale.it/it/913/emeroteca-digitale-italiana/periodic/testata/8621'
+import requests
+from bs4 import BeautifulSoup
+
+PATH: str = 'https://www.internetculturale.it/it/913/emeroteca-digitale-italiana/periodic/testata/8660'
 
 IMG_PATH_START: str = 'http://www.internetculturale.it/jmms/objdownload?'
 IMG_PATH_END: str = '&teca=Casa%20della%20musica%20di%20Parma&resource=img&mode=raw&start=0&offset='  # no offset number
-OUTPUT_PATH: str = 'ItaliaMusicale'
+
+OUTPUT_PATH: str = 'IlTrovatore'
 
 
 def get_documents(url: str):
@@ -37,16 +39,16 @@ def download_images(image_link: str, start_resource_url: str, end_resource_url: 
     for page in range(1000):
         image_composed_url = image_url + str(page + 1)
         file = urllib.request.urlopen(image_composed_url)
-        size = file.headers.get("content-length")
+        size = file.headers.get('content-length')
         if int(size) > 100:
-            with open(f'{base_path}/{image_link[-8:]}-{page+1}.jpeg', "wb") as f:
+            with open(f'{base_path}/{image_link.split("ADB")[1]}-{page+1}.jpeg', "wb") as f:
                 f.write(requests.get(image_composed_url).content)
-                print(f'SAVED FILE AS: {base_path}/{image_link[-8:]}-{page+1}.jpeg')
+                print(f'SAVED FILE AS: {base_path}/{image_link.split("ADB")[1]}-{page+1}.jpeg')
         else:
             break
 
 
 if __name__ == '__main__':
-    links = get_documents(EX_PATH)
+    links = get_documents(PATH)
     for link in links:
         download_images(link, IMG_PATH_START, IMG_PATH_END, OUTPUT_PATH)
