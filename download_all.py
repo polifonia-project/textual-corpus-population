@@ -1,11 +1,12 @@
 from image_scraper import *
+import argparse
 import os
 
 
 def get_search_result(search_url: str):
     resources = []
     titles = []
-    for pag_num in range(3):
+    for pag_num in range(1000):
         pag_url = search_url + str(pag_num)
         page = requests.get(pag_url)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -27,19 +28,19 @@ def create_path(title, base_path):
     return f"{base_path}/{title}"
 
 
-def download_images(image_link: str, start_resource_url: str, end_resource_url: str, base_path: str = ''):
-    print(image_link)
+def download_images(image_link: str, title : str, start_resource_url: str, end_resource_url: str, base_path: str = ''):
     image_link = image_link.replace('&fulltext=1', '')\
         .split('id=oai%3A')[-1].replace('+', '%20')
-    image_url = f'{start_resource_url}{image_link}{end_resource_url}'
+    base_url = f'{start_resource_url}{image_link}{end_resource_url}'
+    image_url = base_url.split('case=')[0] + 'teca=' + base_url.split('Level2')[1]
 
     for page in range(1000):
         # print(image_link)
-        file_name = f'{base_path}/{base_path}_{page}.jpeg'
+        file_name = f'{base_path}/{base_path.split("/")[-1]}_{page}.jpeg'
+
         if file_name.split('/')[-1] not in [f for f in listdir(base_path)]:
-            print(image_url)
             try:
-                image_composed_url = image_url + str(page + 1)
+                image_composed_url = image_url[:-1] + str(page + 1)
                 file = urllib.request.urlopen(image_composed_url)
                 size = file.headers.get('content-length')
                 if int(size) > 100:
@@ -49,26 +50,27 @@ def download_images(image_link: str, start_resource_url: str, end_resource_url: 
                 else:
                     break
             except:
-                print(f'ERROR ENCOUNTERED WHILE HANDLING THE FILE: {image_link}')
+                print(f'ERROR ENCOUNTERED WHILE HANDLING THE FILE: {image_url}')
                 pass
         else:
             print(f'FILE ALREADY IN DIRECTORY, SKIPPING: {file_name}')
 
 
 if __name__ == '__main__':
-    # links = get_documents(PATH)
-    # for link in links:
-    #     download_images(link, IMG_PATH_START, IMG_PATH_END, OUTPUT_PATH)
-    title, all_music = get_search_result(SEARCH_PATH)
+    parser = argparse.ArgumentParser()
+
+    # check that the search_url contains the '&pag=' but NOT the page number
+    parser.add_argument('--search_url', type=str, default='https://www.internetculturale.it/it/16/search?q=musica&instance=magindice&__meta_typeTipo=testo+a+stampa&__meta_typeLivello=monografia&pag=')
+    parser.add_argument('--output_path', type=str, default='/Users/andreapoltronieri/PycharmProjects/image_scraper')
+
+    args = parser.parse_args()
+
+    title, all_music = get_search_result(args.search_url)
     for i, resource_page in enumerate(all_music):
         for i2, music_resource in enumerate(resource_page):
-            path = create_path(title[i][i2], '/Users/andreapoltronieri/PycharmProjects/image_scraper')
-            download_images(music_resource,
+            path = create_path(title[i][i2], args.output_path)
+            download_images(music_resource, title[i][i2],
                             'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
                             '&resource=img&mode=raw&start=0&offset=1',
                             path)
 
-# http://www.internetculturale.it/jmms/objdownload?id=oai%3Awww.internetculturale.sbn.it%2FTeca%3A20%3ANT0000%3AN%3AIT%5C%5CICCU%5C%5CCSA%5C%5C0085808&teca=MagTeca+-+ICCU&resource=img&mode=raw&start=0&offset=1
-# https://www.internetculturale.it/jmms/iccuviewer/iccu.jsp?id=oai%3Awww.internetculturale.sbn.it%2FTeca%3A20%3ANT0000%3AN%3AIT%5C%5CICCU%5C%5CCSA%5C%5C0085808&mode=all&teca=MagTeca%20-%20ICCU&fulltext=1
-
-# http://www.internetculturale.it/jmms/objdownload?id=oai%3Awww.internetculturale.sbn.it%2FTeca%3A20%3ANT0000%3AN%3AIT%5C%5CICCU%5C%5CUM%5C%5C10041524&teca=MagTeca%20-%20ICCU&resource=img&mode=raw&start=0&offset=1
