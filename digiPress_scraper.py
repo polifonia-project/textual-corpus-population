@@ -74,9 +74,9 @@ def scrape_dp(title, base, periodical_id, base_api):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--title', type=str, default='AllgemeineMusikalischeZeitung')
+    parser.add_argument('--title', type=str, default='/media/4TB/rocco/Polifonia/OCR/DE/BerlinerAllgemeineMusikalischeZeitung')
     parser.add_argument('--base', type=str, default='https://digipress.digitale-sammlungen.de')
-    parser.add_argument('--periodical_id', type=str, default='bsbmult00000037')
+    parser.add_argument('--periodical_id', type=str, default='bsbmult00000181')
     parser.add_argument('--base_api', type=str, default='https://api.digitale-sammlungen.de/iiif/image/v2/')
 
     args = parser.parse_args()

@@ -1,15 +1,15 @@
 import urllib.request
-
 import requests
-from bs4 import BeautifulSoup
+import os
 from os import listdir
+from bs4 import BeautifulSoup
 
-PATH: str = 'https://www.internetculturale.it/it/913/emeroteca-digitale-italiana/periodic/testata/8660'
+PATH: str = 'http://www.internetculturale.it/it/913/emeroteca-digitale-italiana/periodic/testata/8620'
 
 IMG_PATH_START: str = 'http://www.internetculturale.it/jmms/objdownload?'
 IMG_PATH_END: str = '&teca=Casa%20della%20musica%20di%20Parma&resource=img&mode=raw&start=0&offset='  # no offset number
 
-OUTPUT_PATH: str = 'IlTrovatore'
+OUTPUT_PATH: str = '/media/4TB/rocco/Polifonia/OCR/EN/TheMusicalTimes'
 
 
 def get_documents(url: str):
@@ -41,7 +41,9 @@ def download_images(image_link: str, start_resource_url: str, end_resource_url: 
     """
     image_url = f'{start_resource_url}{image_link}{end_resource_url}'
     for page in range(1000):
-        file_name = f'{base_path}/{image_link.split("ADB")[1]}-{page+1}.jpeg'
+        #print(image_link)]
+        #exit()
+        file_name = f'{base_path}/{image_link.split("AMT")[1]}-+{page+1}.jpeg'
         if file_name.split('/')[1] not in [f for f in listdir(base_path)]:
             try:
                 image_composed_url = image_url + str(page + 1)
@@ -61,6 +63,8 @@ def download_images(image_link: str, start_resource_url: str, end_resource_url: 
 
 
 if __name__ == '__main__':
+    #if not os.path.exists(OUTPUT_PATH):
+    #    os.makedirs(OUTPUT_PATH)
     links = get_documents(PATH)
     for link in links:
         download_images(link, IMG_PATH_START, IMG_PATH_END, OUTPUT_PATH)

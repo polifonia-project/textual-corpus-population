@@ -1,11 +1,17 @@
+import csv
+
 from image_scraper import *
 import argparse
 import os
 
 
 def get_search_result(search_url: str):
+    ids_entire = []
+    ids_splitted = []
     resources = []
     titles = []
+    years = []
+    authors = []
     for pag_num in range(1000):
         pag_url = search_url + str(pag_num)
         page = requests.get(pag_url)
@@ -13,10 +19,22 @@ def get_search_result(search_url: str):
         results = [x for x in soup.find_all(class_='block-item-search-result')]
         if len(results) > 0:
             titles.append([r.find(class_='block-item-text').find(class_='block-title dc_title').text.strip() for r in results])
+            years.append([r.find(class_='block-item-text').find(class_='dc_issued').text.strip() for r in results])
             resources.append([r.find(class_='block-item-img').find('a')['href'] for r in results])
+            authors.append([r.find(class_='block-item-text').find(class_='dc_creator').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') != None else '' for r in results])
+            ids_ = [r.find(class_='block-item-text').find(class_='dc_id').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') != None else '' for r in results]
+            ids_entire.append(ids_)
+            ids__ = []
+            for id_ in ids_:
+                if '\\\\' in id_:
+                    id_ = id_.split('\\\\')[-1]
+                else:
+                    id_ = id_.split(':')[-1]
+                ids__.append(id_)
+            ids_splitted.append(ids__)
         else:
             break
-    return titles, resources
+    return [ids_entire, ids_splitted, titles, years, authors, resources]
 
 
 def create_path(title, base_path):
@@ -65,12 +83,21 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    title, all_music = get_search_result(args.search_url)
-    for i, resource_page in enumerate(all_music):
-        for i2, music_resource in enumerate(resource_page):
-            path = create_path(title[i][i2], args.output_path)
-            download_images(music_resource, title[i][i2],
-                            'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
-                            '&resource=img&mode=raw&start=0&offset=1',
-                            path)
-
+    ids_entire, ids_splitted, titles, years, authors, resources = get_search_result(args.search_url)
+    with open(args.output_path+'/books_metadata.tsv', 'w') as fw:
+        writer = csv.writer(fw, delimiter='\t')
+        writer.writerow(['id_entire', 'id_splitted', 'author', 'title', 'year'])
+        for i, resource_page in enumerate(resources):
+            for i2, music_resource in enumerate(resource_page):
+                id_entire = ids_entire[i][i2]
+                id_splitted = ids_splitted[i][i2]
+                title = titles[i][i2]
+                year = years[i][i2]
+                author = authors[i][i2]
+                resource = resources[i][i2]
+                writer.writerow([id_entire, id_splitted, author, title, year])
+                path = create_path(id_splitted, args.output_path)
+                download_images(music_resource, title,
+                                'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
+                                '&resource=img&mode=raw&start=0&offset=1',
+                                path)
