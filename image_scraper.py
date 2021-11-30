@@ -1,15 +1,9 @@
+import argparse
 import urllib.request
-import requests
-import os
 from os import listdir
+
+import requests
 from bs4 import BeautifulSoup
-
-PATH: str = 'http://www.internetculturale.it/it/913/emeroteca-digitale-italiana/periodic/testata/8620'
-
-IMG_PATH_START: str = 'http://www.internetculturale.it/jmms/objdownload?'
-IMG_PATH_END: str = '&teca=Casa%20della%20musica%20di%20Parma&resource=img&mode=raw&start=0&offset='  # no offset number
-
-OUTPUT_PATH: str = '/media/4TB/rocco/Polifonia/OCR/EN/TheMusicalTimes'
 
 
 def get_documents(url: str):
@@ -41,10 +35,9 @@ def download_images(image_link: str, start_resource_url: str, end_resource_url: 
     """
     image_url = f'{start_resource_url}{image_link}{end_resource_url}'
     for page in range(1000):
-        #print(image_link)]
-        #exit()
-        file_name = f'{base_path}/{image_link.split("AMT")[1]}-+{page+1}.jpeg'
-        if file_name.split('/')[1] not in [f for f in listdir(base_path)]:
+        # print(image_link)
+        file_name = f'{base_path}/{image_link.split("%3")[-1][3:]}-{page+1}.jpeg'
+        if file_name.split('/')[-1] not in [f for f in listdir(base_path)]:
             try:
                 image_composed_url = image_url + str(page + 1)
                 file = urllib.request.urlopen(image_composed_url)
@@ -63,8 +56,24 @@ def download_images(image_link: str, start_resource_url: str, end_resource_url: 
 
 
 if __name__ == '__main__':
-    #if not os.path.exists(OUTPUT_PATH):
-    #    os.makedirs(OUTPUT_PATH)
-    links = get_documents(PATH)
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--resource_url',
+                        type=str,
+                        default='https://www.internetculturale.it/it/913/emeroteca-digitale-italiana/periodic/testata'
+                                '/8670')
+    parser.add_argument('--img_path_start',
+                        type=str,
+                        default='http://www.internetculturale.it/jmms/objdownload?')
+    parser.add_argument('--img_path_end',
+                        type=str,
+                        default='&teca=Casa%20della%20musica%20di%20Parma&resource=img&mode=raw&start=0&offset=')
+    parser.add_argument('--output_path',
+                        type=str,
+                        default='/Volumes/MUST/OCR/Arpa')
+
+    args = parser.parse_args()
+
+    links = get_documents(args.resource_url)
     for link in links:
-        download_images(link, IMG_PATH_START, IMG_PATH_END, OUTPUT_PATH)
+        download_images(link, args.img_path_start, args.img_path_end, args.output_path)
