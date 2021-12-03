@@ -8,7 +8,7 @@ The repository contains two main types of code:
 Since these two types of scripts can also be used as stand-alone software, they are documented separately, while the setup and the requirement installation is documented for all the scripts contained in the repository.
 
 ## Requirements and Installation
-For running all the scripts you need to have Python (3.6+) and pip3 installed on your machine.
+For running all the scripts you need to have Python (3.6+, version 3.9 suggested) and pip3 installed on your machine.
 Instructions for installing Python and pip can be found on the [Python download page](https://www.python.org/downloads/).
 
 Once Python is installed, it is necessary to clone the repository using git (installation information on [this page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)):
