@@ -41,7 +41,7 @@ def get_pdf_list(url: str, out_path: str):
                 print(f'DOWNLOADING RESOURCE: {download_link}')
                 file = requests.get(download_link)
                 pdf = open(f'{out_path}/{res_date}_{res_num.replace("%2C+n.%C2%BA+", "")}.pdf' if res_num != '' else f'{out_path}/{res_date}.pdf', 'wb')
-                print(f'FILE SAVED AS: {res_date}_{res_num}.pdf')
+                print(f'FILE SAVED AS: {res_date}_{res_num.replace("%2C+n.%C2%BA+", "")}.pdf')
                 pdf.write(file.content)
                 pdf.close()
         else:
@@ -60,4 +60,4 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    get_pdf_list('http://hemerotecadigital.bne.es/results.vm?q=parent%3A0003894964&s=0&lang=es', '/Users/andreapoltronieri/Documents/Polifonia/WP4/OCR/GacetaMusicalDeMadrid')
+    get_pdf_list(args.resource_url, args.output_path)
