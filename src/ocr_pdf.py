@@ -126,10 +126,10 @@ def ocrise_multiple(final_path, language_mode, single_lang, multiple_langs, outp
                                 multiple_langs, single_lang)
                 if len(filename.split('-')[:-1]) > 1:
                     if extension is None and f"{'-'.join(filename.split('-')[:-1])}.txt" not in [f for f in
-                                                                                                 os.listdir('./')]:
+                                                                                                 os.listdir('../')]:
                         save_to_txt(f"{'-'.join(filename.split('-')[:-1])}.txt", image_ocr)
                     elif extension is None and f"{'-'.join(filename.split('-')[:-1])}.txt" in [f for f in
-                                                                                               os.listdir('./')]:
+                                                                                               os.listdir('../')]:
                         with open(f"{'-'.join(filename.split('-')[:-1])}.txt", "a") as existing_file:
                             existing_file.write(f"\n\n\n{image_ocr}")
                 else:

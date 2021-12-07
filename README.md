@@ -29,7 +29,7 @@ The full documentation for installing Tesseract and its dependencies can be foun
 ### Internet Culturale scraper
 For downloading resources from "Internet Culturale" you need to run the ```internet_culturale_scraper.py``` as:
 ```
-python3 internet_culturale_scraper.py [-h] [--resource_url] [--output_path]
+python3 src/internet_culturale_scraper.py [-h] [--resource_url] [--output_path]
 ```
 
 The parameter to pass are described as follows:
@@ -41,7 +41,7 @@ The parameter to pass are described as follows:
 
 You can also browse the script's documentation by typing:
 ```
-python3 internet_culturale_scraper.py --help
+python3 src/internet_culturale_scraper.py --help
 ```
 
 The script will download all files related to the given resource to the specified folder. 
@@ -58,7 +58,7 @@ To attempt to download the non-downloaded files again, simply restart the script
 
 For downloading resources from "Internet Culturale" you need to run the ```internet_culturale_scraper.py``` as:
 ```
-python3 hemeroteca_digital_scraper.py [-h] [--resource_url] [--output_path]
+python3 src/hemeroteca_digital_scraper.py [-h] [--resource_url] [--output_path]
 ```
 
 The parameter to pass are described as follows:
@@ -67,13 +67,13 @@ The parameter to pass are described as follows:
 
 --output_path (string):  the existing path in with to save the downloaded resource
 ```
-The resource url must be the url of a specific resource search result of the "Query" section, only searching for resource's "Title", and clicking on "Search among free-access titles", as illustrated in the image:
-![](../../../../Desktop/Screenshot 2021-12-07 at 15.45.55.png)
-Remember to select **only** one resource at the time. 
 
 You can also browse the script's documentation by typing:
 ```
-python3 hemeroteca_digital_scraper.py --help
+python3 src/hemeroteca_digital_scraper.py --help
 ```
 
+The resource url must be the url of a specific resource search result of the "Query" section, only searching for resource's "Title", and clicking on "Search among free-access titles", as illustrated in the image:
+![](etc/img/hemeroteca_digital.png)
+Remember to select **only** one resource at the time. 
 
