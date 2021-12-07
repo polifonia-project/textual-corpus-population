@@ -26,7 +26,7 @@ For running the OCR Script it is required to install [Tesseract](https://github.
 The full documentation for installing Tesseract and its dependencies can be found in [Tesseract official documentation](https://tesseract-ocr.github.io/tessdoc/Installation.html).
 
 ## Usage
-### File scrapers
+### Internet Culturale scraper
 For downloading resources from "Internet Culturale" you need to run the ```internet_culturale_scraper.py``` as:
 ```
 python3 internet_culturale_scraper.py [-h] [--resource_url] [--output_path]
@@ -53,3 +53,27 @@ In addition, a log file named ```download_log.txt``` will be generated in the ou
 * the list of files not downloaded.
 
 To attempt to download the non-downloaded files again, simply restart the script with the same parameters. 
+
+### Hemeroteca Digital scraper
+
+For downloading resources from "Internet Culturale" you need to run the ```internet_culturale_scraper.py``` as:
+```
+python3 hemeroteca_digital_scraper.py [-h] [--resource_url] [--output_path]
+```
+
+The parameter to pass are described as follows:
+```
+--resource_url (string):  the url of a resource page on "Hemeroteca Digital" (e.g. "http://hemerotecadigital.bne.es/results.vm?q=parent%3A0003894964&s=0&lang=es"
+
+--output_path (string):  the existing path in with to save the downloaded resource
+```
+The resource url must be the url of a specific resource search result of the "Query" section, only searching for resource's "Title", and clicking on "Search among free-access titles", as illustrated in the image:
+![](../../../../Desktop/Screenshot 2021-12-07 at 15.45.55.png)
+Remember to select **only** one resource at the time. 
+
+You can also browse the script's documentation by typing:
+```
+python3 hemeroteca_digital_scraper.py --help
+```
+
+
