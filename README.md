@@ -1,3 +1,35 @@
+---
+id: ocr
+name: Optic Character Recognition
+brief-description: Polifonia downloader and digitiser of textual data.
+type: Repository
+release-date: 07-12-2021
+release-number: v0.1
+work-package: WP4
+pilot: MusicBo
+keywords:
+  - ocr
+  - image
+  - text digitisation
+  - textual data
+changelog: n/a.
+licence: CC BY-NC 4.0
+release link: n/a.
+image: n/a.
+logo: n/a.
+demo: n/a
+links: n/a
+running-instance: n/a
+credits: A. Poltronieri (UniBo), R. Tripodi (UniBo)
+related-components:
+  - File scraper
+    - Internet Culturale Scraper
+    - Hemeroteca Digitale Scraper
+    - DigiPress Scraper
+  - Ocr script
+bibliography: n/a
+---
+
 # Polifonia OCR
 
 This repository contains the code for downloading and digitising documents used as a corpus for the [Polifonia Project](https://polifonia-project.eu/).
@@ -77,3 +109,33 @@ The resource url must be the url of a specific resource search result of the "Qu
 ![](etc/img/hemeroteca_digital.png)
 Remember to select **only** one resource at the time. 
 
+### OCR Script
+
+```
+ocr_pdf.py [-h] [--input_path] [--output_path] [--output_format] [--output_name] [--language_mode]
+                  [--single_language] [--multiple_langs] [--gray_scale] [--remove_noise]
+                  [--thresholding] [--dilate] [--erosion] [--edge_detection] [--skew_correction]
+                  [--page_segmentation_mode] [--ocr_engine_mode]
+
+```
+
+```
+optional arguments:
+  --input_path 
+  --output_path 
+  --output_format 
+  --output_name 
+  --language_mode 
+  --single_language 
+  --multiple_langs 
+  --gray_scale 
+  --remove_noise 
+  --thresholding 
+  --dilate 
+  --erosion 
+  --edge_detection 
+  --skew_correction 
+  --page_segmentation_mode 
+  --ocr_engine_mode 
+
+```
