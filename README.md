@@ -37,7 +37,7 @@ The repository contains two main types of code:
 * file scrapers that automate the download of big repositories of textual data;
 * OCR script for digitising the downloaded files. 
 
-Since these two types of scripts can also be used as stand-alone software, they are documented separately, while the setup and the requirement installation is documented for all the scripts contained in the repository.
+---
 
 ## Information on installation and setup
 For running all the scripts you need to have Python (3.6+, version 3.9 suggested) and pip3 installed on your machine.
@@ -57,8 +57,13 @@ pip install requirements.txt
 For running the OCR Script it is required to install [Tesseract](https://github.com/tesseract-ocr/tesseract) and the trained data for the languages you need to work with.
 The full documentation for installing Tesseract and its dependencies can be found in [Tesseract official documentation](https://tesseract-ocr.github.io/tessdoc/Installation.html).
 
+---
 ## Usage
-### Internet Culturale scraper
+Since these two types of scripts can also be used as stand-alone software, they are documented separately, while the setup and the requirement installation is documented for all the scripts contained in the repository.
+
+---
+
+## Internet Culturale scraper
 For downloading resources from "Internet Culturale" you need to run the ```internet_culturale_scraper.py``` as:
 ```
 python3 src/internet_culturale_scraper.py [-h] [--resource_url] [--output_path]
@@ -86,7 +91,9 @@ In addition, a log file named ```download_log.txt``` will be generated in the ou
 
 To attempt to download the non-downloaded files again, simply restart the script with the same parameters. 
 
-### Hemeroteca Digital scraper
+---
+
+## Hemeroteca Digital scraper
 
 For downloading resources from "Internet Culturale" you need to run the ```internet_culturale_scraper.py``` as:
 ```
@@ -109,7 +116,9 @@ The resource url must be the url of a specific resource search result of the "Qu
 ![](etc/img/hemeroteca_digital.png)
 Remember to select **only** one resource at the time. 
 
-### OCR Script
+---
+
+## OCR Script
 
 ```
 ocr_pdf.py [-h] [--input_path] [--output_path] [--output_format] [--output_name] [--language_mode]
