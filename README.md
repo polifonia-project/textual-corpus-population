@@ -13,7 +13,7 @@ keywords:
   - text digitisation
   - textual data
 changelog: n/a.
-licence: CC BY-NC 4.0
+licence: MIT
 release link: n/a.
 image: n/a.
 logo: n/a.
@@ -103,7 +103,8 @@ python3 src/hemeroteca_digital_scraper.py [-h] [--resource_url] [--output_path]
 The parameter to pass are described as follows:
 ```
 --resource_url (string):  the url of a resource page on "Hemeroteca Digital" (e.g. "http://hemerotecadigital.bne.es/results.vm?q=parent%3A0003894964&s=0&lang=es"
-
+```
+```
 --output_path (string):  the existing path in with to save the downloaded resource
 ```
 
@@ -120,31 +121,120 @@ Remember to select **only** one resource at the time.
 
 ## OCR Script
 
+For digitising the textual documents you need to run ```python3 src/ocr_script.py```.
+The script can perform OCR on multiple documents at the time. In particular, it has been developed to automatically perform document digitisation starting from:
+* single image files (in multiple formats);
+* single .pdf files;
+* folders of images;
+* folders of pdfs.
+
+The script accepts the following parameters in input:
 ```
-ocr_pdf.py [-h] [--input_path] [--output_path] [--output_format] [--output_name] [--language_mode]
+ocr_script.py [-h] [--input_path] [--output_path] [--output_format] [--output_name] [--language_mode]
                   [--single_language] [--multiple_langs] [--gray_scale] [--remove_noise]
                   [--thresholding] [--dilate] [--erosion] [--edge_detection] [--skew_correction]
                   [--page_segmentation_mode] [--ocr_engine_mode]
 
 ```
 
-```
-optional arguments:
-  --input_path 
-  --output_path 
-  --output_format 
-  --output_name 
-  --language_mode 
-  --single_language 
-  --multiple_langs 
-  --gray_scale 
-  --remove_noise 
-  --thresholding 
-  --dilate 
-  --erosion 
-  --edge_detection 
-  --skew_correction 
-  --page_segmentation_mode 
-  --ocr_engine_mode 
+The parameter to pass are described as follows:
 
 ```
+  --input_path (string): the path of the local file to be digitised or the local folder containing the files to be digitised;
+```
+```
+  --output_path (string, default ''): ONLY TO USE IF THE INPUT SOURCE IS IN .pdf format: specifies the directory in which to save the converted images (one for each of the input pdf pages);
+```
+```
+  --output_format (string, default 'png'): ONLY TO USE IF THE INPUT SOURCE IS IN .pdf format: specifies the format of the conversion from .pdf to image;
+```
+```
+  --output_name  (string): the name of the digitised text file:
+```
+```
+  --language_mode (string: 'mono' or 'multi'): allows to specify if the content to digitise is in one language or multilingual;
+```
+```
+  --single_language (string): ONLY TO USE IF --language_mode='mono': takes the language parameter as defined in Tesseract documentation;
+```
+```
+  --multiple_langs (boolean): ONLY TO USE IF --language_mode='multi': takes the language parameters as defined in Tesseract documentation, comma separated; 
+```
+```
+  --gray_scale (boolean): enables the gray scale preprocessing;
+```
+```
+  --remove_noise (boolean): enables the remove noise preprocessing;
+```
+```
+  --thresholding (boolean): enables the thresholding preprocessing; 
+```
+```
+  --dilate (boolean): enables the dilate preprocessing; 
+```
+```
+  --erosion (boolean): enables the erosion preprocessing; 
+```
+```
+  --edge_detection (boolean): enables the edge detection preprocessing;
+```
+```
+  --skew_correction (boolean): enables the skew correction preprocessing;
+```
+```
+  --page_segmentation_mode (integer): allows to specify the Tesseract Page Segmentation Mode (PSM), as defined in Tesseract documentation;
+```
+```
+  --ocr_engine_mode (integer): allows to specify the Tesseract Ocr Engine Mode (OEM), as defined in Tesseract documentation;
+```
+
+You can also browse the script's documentation by typing:
+```
+python3 src/ocr_script.py --help
+```
+
+For preprocessing, the script reuses the OpenCV library. You can read the [official documentation](https://opencv.org/) for more information on how the preprocessing algorithms work.
+
+With regard instead to the parameters defined by Tesseract (e.g. Page Seg because of Page Segmentation Mode and Ocr Engine Mode), it is possible to read a comprehensive guide in the [Tesseract documentation](https://github.com/tesseract-ocr/tessdoc).
+However, here is a quick guide to the PSM parameters:
+
+| Parameter | Description                                                                                   |
+|-----------|-----------------------------------------------------------------------------------------------|
+| 0         | Orientation and script detection (OSD) only.                                                  |
+| 1         | Automatic page segmentation with OSD.                                                         |
+| 2         | Automatic page segmentation, but no OSD, or OCR.                                              |
+| 3         | Fully automatic page segmentation, but no OSD. (Default)                                      |
+| 4         | Assume a single column of text of variable sizes.                                             |
+| 5         | Assume a single uniform block of vertically aligned text.                                     |
+| 6         | Assume a single uniform block of text.                                                        |
+| 7         | Treat the image as a single text line.                                                        |
+| 8         | Treat the image as a single word.                                                             |
+| 9         | Treat the image as a single word in a circle.                                                 |
+| 10        | Treat the image as a single character.                                                        |
+| 11        | Sparse text. Find as much text as possible in no particular order.                            |
+| 12        | Sparse text with OSD.                                                                         |
+| 13        | Raw line. Treat the image as a single text line, bypassing hacks that are Tesseract-specific. | 
+
+# License
+
+MIT License
+
+Copyright (c) 2021 Andrea Poltronieri, Rocco Tripodi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
