@@ -59,8 +59,7 @@ def pdf_to_img(file_path, out_path, out_format="png"):
         page.save("{}/{}.{}".format(results_path, page_num, out_format), out_format)
 
 
-def image_processing(input_path, gray_scale=True, remove_noise=False, thresholding=False, dilate=False, erosion=False,
-                     edge_detection=False, skew_correction=False):
+def image_processing(input_path, gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection, skew_correction):
     kernel = np.ones((5, 5), np.uint8)
     image = cv2.imread(input_path)
 
@@ -142,11 +141,11 @@ def ocrise_multiple(final_path, language_mode, single_lang, multiple_langs, outp
     return ocr_all
 
 
-def ocrise_single(final_path, language_mode, single_lang, multiple_langs, psm, oem,
+def ocrise_single(input_file, language_mode, single_lang, multiple_langs, psm, oem,
                   gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection, skew_correction):
-    print("PROCESSING IMAGE: {}".format(final_path))
+    print("PROCESSING IMAGE: {}".format(input_file))
 
-    image = image_processing(final_path, gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection,
+    image = image_processing(input_file, gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection,
                              skew_correction)
     image_ocr = ocr(image, language_mode, psm, oem, multiple_langs, single_lang)
 
@@ -174,7 +173,7 @@ if __name__ == "__main__":
                         default='png')  # only needed if the input format is pdf
     parser.add_argument('--output_name',
                         type=str,
-                        default='test.txt')  # name of the output .txt file
+                        default='test2.txt')  # name of the output .txt file
 
     # Language parameters
     parser.add_argument('--language_mode',
@@ -188,13 +187,13 @@ if __name__ == "__main__":
                         default='fra+eng+ita+spa+deu')  # needed if working with --language_mode = "multi"
 
     # Preprocessing parameters
-    parser.add_argument('--gray_scale', type=bool, default='True')
-    parser.add_argument('--remove_noise', type=bool, default='False')
-    parser.add_argument('--thresholding', type=bool, default='True')
-    parser.add_argument('--dilate', type=bool, default='False')
-    parser.add_argument('--erosion', type=bool, default='False')
-    parser.add_argument('--edge_detection', type=bool, default='False')
-    parser.add_argument('--skew_correction', type=bool, default='False')
+    parser.add_argument('--gray_scale', type=bool, default=True)
+    parser.add_argument('--remove_noise', type=bool, default=False)
+    parser.add_argument('--thresholding', type=bool, default=True)
+    parser.add_argument('--dilate', type=bool, default=False)
+    parser.add_argument('--erosion', type=bool, default=False)
+    parser.add_argument('--edge_detection', type=bool, default=False)
+    parser.add_argument('--skew_correction', type=bool, default=False)
 
     # OCR parameters
     parser.add_argument('--page_segmentation_mode', type=int, default=1)
@@ -230,7 +229,7 @@ if __name__ == "__main__":
                                   edge_detection=args.edge_detection,
                                   skew_correction=args.skew_correction)
     else:
-        ocr_all = ocrise_single(final_path=args.output_path,
+        ocr_all = ocrise_single(input_file=args.input_path,
                                 language_mode=args.language_mode,
                                 single_lang=args.single_language,
                                 multiple_langs=args.multiple_langs,
