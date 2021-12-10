@@ -2,7 +2,7 @@ import ntpath
 import os
 import re
 import argparse
-
+import filetype
 import cv2
 import numpy as np
 import pytesseract

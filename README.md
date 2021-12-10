@@ -1,6 +1,6 @@
 ---
-id: ocr
-name: Optic Character Recognition
+id: textual-corpus-population
+name: Textual Corpus Population
 brief-description: Polifonia downloader and digitiser of textual data.
 type: Repository
 release-date: 07-12-2021
