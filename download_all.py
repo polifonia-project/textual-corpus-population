@@ -85,6 +85,7 @@ if __name__ == '__main__':
 
     ids_entire, ids_splitted, titles, years, authors, resources = get_search_result(args.search_url)
     with open(args.output_path+'/books_metadata.tsv', 'w') as fw:
+    #with open('books_metadata.tsv', 'w') as fw:
         writer = csv.writer(fw, delimiter='\t')
         writer.writerow(['id_entire', 'id_splitted', 'author', 'title', 'year'])
         for i, resource_page in enumerate(resources):
@@ -97,6 +98,7 @@ if __name__ == '__main__':
                 resource = resources[i][i2]
                 writer.writerow([id_entire, id_splitted, author, title, year])
                 path = create_path(id_splitted, args.output_path)
+                #path = create_path('',id_splitted)
                 download_images(music_resource, title,
                                 'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
                                 '&resource=img&mode=raw&start=0&offset=1',
