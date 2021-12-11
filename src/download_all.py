@@ -1,6 +1,6 @@
 import csv
 
-from image_scraper import *
+from internet_culturale_scraper import *
 import argparse
 import os
 
@@ -12,7 +12,7 @@ def get_search_result(search_url: str):
     titles = []
     years = []
     authors = []
-    for pag_num in range(1000):
+    for pag_num in range(1):
         pag_url = search_url + str(pag_num)
         page = requests.get(pag_url)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -53,7 +53,6 @@ def download_images(image_link: str, title : str, start_resource_url: str, end_r
     image_url = base_url.split('case=')[0] + 'teca=' + base_url.split('Level2')[1]
 
     for page in range(1000):
-        # print(image_link)
         file_name = f'{base_path}/{base_path.split("/")[-1]}_{page}.jpeg'
 
         if file_name.split('/')[-1] not in [f for f in listdir(base_path)]:
@@ -79,7 +78,7 @@ if __name__ == '__main__':
 
     # check that the search_url contains the '&pag=' but NOT the page number
     parser.add_argument('--search_url', type=str, default='https://www.internetculturale.it/it/16/search?q=musica&instance=magindice&__meta_typeTipo=testo+a+stampa&__meta_typeLivello=monografia&pag=')
-    parser.add_argument('--output_path', type=str, default='/Users/andreapoltronieri/PycharmProjects/image_scraper')
+    parser.add_argument('--output_path', type=str, default='/Users/andreapoltronieri/Documents/Polifonia/WP4/OCR')
 
     args = parser.parse_args()
 
