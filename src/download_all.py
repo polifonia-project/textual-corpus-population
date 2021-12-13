@@ -12,7 +12,7 @@ def get_search_result(search_url: str):
     titles = []
     years = []
     authors = []
-    for pag_num in range(1):
+    for pag_num in range(2):
         pag_url = search_url + str(pag_num)
         page = requests.get(pag_url)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -21,8 +21,8 @@ def get_search_result(search_url: str):
             titles.append([r.find(class_='block-item-text').find(class_='block-title dc_title').text.strip() for r in results])
             years.append([r.find(class_='block-item-text').find(class_='dc_issued').text.strip() for r in results])
             resources.append([r.find(class_='block-item-img').find('a')['href'] for r in results])
-            authors.append([r.find(class_='block-item-text').find(class_='dc_creator').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') != None else '' for r in results])
-            ids_ = [r.find(class_='block-item-text').find(class_='dc_id').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') != None else '' for r in results]
+            authors.append([r.find(class_='block-item-text').find(class_='dc_creator').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') is not None else '' for r in results])
+            ids_ = [r.find(class_='block-item-text').find(class_='dc_id').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') is not None else '' for r in results]
             ids_entire.append(ids_)
             ids__ = []
             for id_ in ids_:
@@ -72,8 +72,30 @@ def download_images(image_link: str, title : str, start_resource_url: str, end_r
             print(f'FILE ALREADY IN DIRECTORY, SKIPPING: {file_name}')
 
 
-def download_pdf():
-    pass
+def download_pdf(resource_id, split_id, download_path):
+    resource_id = resource_id.replace('oai:', '').replace(':', '%3A').replace('/', '%2F').replace('\\', '%5C')
+    download_url = None
+    if 'bncf' in resource_id:
+        download_url = f'http://www.internetculturale.it/jmms/objdownload?id=oai%3A{resource_id}&teca=Bncf&resource=img&mode=all'
+    elif 'internetculturale.sbn' in resource_id:
+        download_url = f'http://www.internetculturale.it/jmms/objdownload?id=oai%3A{resource_id}&teca=MagTeca%20-%20ICCU&resource=img&mode=all'
+    else:
+        print('RESOURCE NOT MAPPED', resource_id)
+
+    if download_url:
+        if f'{split_id}.pdf' in os.listdir(download_path):
+            print(f'FILE ALREADY IN DIRECTORY, SKIPPING {download_url}')
+            pass
+        else:
+            try:
+                file = requests.get(download_url, timeout=20)
+                print(f'DOWNLOADING RESOURCE {split_id}.pdf')
+                pdf = open(f'{download_path}/{split_id}.pdf', 'wb')
+                pdf.write(file.content)
+                pdf.close()
+            except requests.exceptions.ReadTimeout:
+                print(f'DOWNLOAD FAILED, NOT DOWNLOADED {split_id}.pdf')
+                pass
 
 
 if __name__ == '__main__':
@@ -81,31 +103,32 @@ if __name__ == '__main__':
 
     # check that the search_url contains the '&pag=' but NOT the page number
     parser.add_argument('--search_url', type=str, default='https://www.internetculturale.it/it/16/search?q=musica&instance=magindice&__meta_typeTipo=testo+a+stampa&__meta_typeLivello=monografia&pag=')
-    parser.add_argument('--output_path', type=str, default='/Users/andreapoltronieri/Documents/Polifonia/WP4/OCR')
+    parser.add_argument('--output_path', type=str, default='/Users/andreapoltronieri/Documents/Polifonia/WP4/')
 
     args = parser.parse_args()
 
     ids_entire, ids_splitted, titles, years, authors, resources = get_search_result(args.search_url)
     print(ids_entire)
     print(ids_splitted)
+
+
     # with open(args.output_path+'/books_metadata.tsv', 'w') as fw:
     # #with open('books_metadata.tsv', 'w') as fw:
     #     writer = csv.writer(fw, delimiter='\t')
     #     writer.writerow(['id_entire', 'id_splitted', 'author', 'title', 'year'])
-    #     for i, resource_page in enumerate(resources):
-    #         for i2, music_resource in enumerate(resource_page):
-    #             id_entire = ids_entire[i][i2]
-    #             id_splitted = ids_splitted[i][i2]
-    #             title = titles[i][i2]
-    #             year = years[i][i2]
-    #             author = authors[i][i2]
-    #             resource = resources[i][i2]
-    #             writer.writerow([id_entire, id_splitted, author, title, year])
-    #             path = create_path(id_splitted, args.output_path)
-    #             #path = create_path('',id_splitted)
-    #             download_images(music_resource, title,
-    #                             'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
-    #                             '&resource=img&mode=raw&start=0&offset=1',
-    #                             path)
-
-# http://www.internetculturale.it/jmms/objdownload?id=oai%3Abncf.firenze.sbn.it%3A21%3AFI0098%3AArsbni1%3ASBL0274444&teca=Bncf&resource=img&mode=all
+    for i, resource_page in enumerate(resources):
+        for i2, music_resource in enumerate(resource_page):
+            id_entire = ids_entire[i][i2]
+            id_splitted = ids_splitted[i][i2]
+            title = titles[i][i2]
+            year = years[i][i2]
+            author = authors[i][i2]
+            resource = resources[i][i2]
+            download_pdf(id_entire, id_splitted, args.output_path)
+            # writer.writerow([id_entire, id_splitted, author, title, year])
+            # path = create_path(id_splitted, args.output_path)
+            # path = create_path('',id_splitted)
+            # download_images(music_resource, title,
+            #                 'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
+            #                 '&resource=img&mode=raw&start=0&offset=1',
+            #                 path)
