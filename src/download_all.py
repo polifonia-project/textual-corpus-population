@@ -110,9 +110,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     ids_entire, ids_splitted, titles, years, authors, resources = get_search_result(args.search_url)
-    print(ids_entire)
-    print(ids_splitted)
-
 
     # with open(args.output_path+'/books_metadata.tsv', 'w') as fw:
     # #with open('books_metadata.tsv', 'w') as fw:
