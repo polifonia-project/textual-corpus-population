@@ -12,7 +12,7 @@ def get_search_result(search_url: str):
     titles = []
     years = []
     authors = []
-    for pag_num in range(2):
+    for pag_num in range(1000):
         pag_url = search_url + str(pag_num)
         page = requests.get(pag_url)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -79,6 +79,8 @@ def download_pdf(resource_id, split_id, download_path):
         download_url = f'http://www.internetculturale.it/jmms/objdownload?id=oai%3A{resource_id}&teca=Bncf&resource=img&mode=all'
     elif 'internetculturale.sbn' in resource_id:
         download_url = f'http://www.internetculturale.it/jmms/objdownload?id=oai%3A{resource_id}&teca=MagTeca%20-%20ICCU&resource=img&mode=all'
+    elif 'braidense' in resource_id:
+        download_url = f'http://www.internetculturale.it/jmms/objdownload?id=oai%3A{resource_id}&teca=Braidense&resource=img&mode=all'
     else:
         print('RESOURCE NOT MAPPED', resource_id)
 
