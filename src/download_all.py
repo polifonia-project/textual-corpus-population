@@ -47,8 +47,7 @@ def create_path(title, base_path):
 
 
 def download_images(image_link: str, title : str, start_resource_url: str, end_resource_url: str, base_path: str = ''):
-    image_link = image_link.replace('&fulltext=1', '')\
-        .split('id=oai%3A')[-1].replace('+', '%20')
+    image_link = image_link.replace('&fulltext=1', '').split('id=oai%3A')[-1].replace('+', '%20')
     base_url = f'{start_resource_url}{image_link}{end_resource_url}'
     image_url = base_url.split('case=')[0] + 'teca=' + base_url.split('Level2')[1]
 
@@ -73,6 +72,10 @@ def download_images(image_link: str, title : str, start_resource_url: str, end_r
             print(f'FILE ALREADY IN DIRECTORY, SKIPPING: {file_name}')
 
 
+def download_pdf():
+    pass
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
@@ -83,22 +86,26 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     ids_entire, ids_splitted, titles, years, authors, resources = get_search_result(args.search_url)
-    with open(args.output_path+'/books_metadata.tsv', 'w') as fw:
-    #with open('books_metadata.tsv', 'w') as fw:
-        writer = csv.writer(fw, delimiter='\t')
-        writer.writerow(['id_entire', 'id_splitted', 'author', 'title', 'year'])
-        for i, resource_page in enumerate(resources):
-            for i2, music_resource in enumerate(resource_page):
-                id_entire = ids_entire[i][i2]
-                id_splitted = ids_splitted[i][i2]
-                title = titles[i][i2]
-                year = years[i][i2]
-                author = authors[i][i2]
-                resource = resources[i][i2]
-                writer.writerow([id_entire, id_splitted, author, title, year])
-                path = create_path(id_splitted, args.output_path)
-                #path = create_path('',id_splitted)
-                download_images(music_resource, title,
-                                'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
-                                '&resource=img&mode=raw&start=0&offset=1',
-                                path)
+    print(ids_entire)
+    print(ids_splitted)
+    # with open(args.output_path+'/books_metadata.tsv', 'w') as fw:
+    # #with open('books_metadata.tsv', 'w') as fw:
+    #     writer = csv.writer(fw, delimiter='\t')
+    #     writer.writerow(['id_entire', 'id_splitted', 'author', 'title', 'year'])
+    #     for i, resource_page in enumerate(resources):
+    #         for i2, music_resource in enumerate(resource_page):
+    #             id_entire = ids_entire[i][i2]
+    #             id_splitted = ids_splitted[i][i2]
+    #             title = titles[i][i2]
+    #             year = years[i][i2]
+    #             author = authors[i][i2]
+    #             resource = resources[i][i2]
+    #             writer.writerow([id_entire, id_splitted, author, title, year])
+    #             path = create_path(id_splitted, args.output_path)
+    #             #path = create_path('',id_splitted)
+    #             download_images(music_resource, title,
+    #                             'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
+    #                             '&resource=img&mode=raw&start=0&offset=1',
+    #                             path)
+
+# http://www.internetculturale.it/jmms/objdownload?id=oai%3Abncf.firenze.sbn.it%3A21%3AFI0098%3AArsbni1%3ASBL0274444&teca=Bncf&resource=img&mode=all
