@@ -1,9 +1,13 @@
-import csv
-import re
-
-from internet_culturale_scraper import *
 import argparse
+import csv
 import os
+import urllib
+from os import listdir
+
+import requests
+from bs4 import BeautifulSoup
+
+TIMEOUT = 20
 
 
 def get_search_result(search_url: str):
@@ -14,7 +18,7 @@ def get_search_result(search_url: str):
     years = []
     authors = []
     print('\nRETRIEVING SEARCH RESULTS...\n')
-    for pag_num in range(2):
+    for pag_num in range(1000):
         pag_url = search_url + str(pag_num)
         page = requests.get(pag_url)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -93,7 +97,7 @@ def download_pdf(resource_id, split_id, download_path):
             pass
         else:
             try:
-                file = requests.get(download_url, timeout=20)
+                file = requests.get(download_url, timeout=TIMEOUT)
                 print(f'DOWNLOADING RESOURCE {split_id}.pdf')
                 pdf = open(f'{download_path}/{split_id}.pdf', 'wb')
                 pdf.write(file.content)
