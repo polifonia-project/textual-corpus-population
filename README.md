@@ -71,9 +71,9 @@ python3 src/internet_culturale_scraper.py [-h] [--resource_url] [--output_path]
 
 The parameter to pass are described as follows:
 ```
---resource_url (string):  the url of a resource page on "Internet Culturale" (e.g. "https://www.internetculturale.it/it/913/emeroteca-digitale-italiana/periodic/testata/8670"
+--resource_url (string):  the url of a resource page on "Internet Culturale" (e.g. "https://www.internetculturale.it/it/913/emeroteca-digitale-italiana/periodic/testata/8670")
 
---output_path (string):  the existing path in with to save the downloaded resource
+--output_path (string):  the existing path in which to save the downloaded resource
 ```
 
 You can also browse the script's documentation by typing:
@@ -90,6 +90,27 @@ In addition, a log file named ```download_log.txt``` will be generated in the ou
 * the list of files not downloaded.
 
 To attempt to download the non-downloaded files again, simply restart the script with the same parameters. 
+
+---
+## Internet Culturale Search Results Scraper
+This scraper downloads all the results of a search on the **Internet Culturale**. 
+To run the script, simply run the ```download_all.py``` script as:
+``` 
+download_all.py [-h] [--search_url] [--output_path]
+```
+The parameter to pass are described as follows:
+```
+--search_url (string): the url of the results page on "Internet Culturale" (e.g. "https://www.internetculturale.it/it/16/search?q=musica&instance=magindice&__meta_typeTipo=testo+a+stampa&__meta_typeLivello=monografia&pag=1")
+
+--output_path (string): the existing path in which to save the downloaded resources
+```
+The ```search_url``` parameter needs to be the url of a result page of a search on Internet Culturale but without the page number (the last digit(s) at the end of the url).
+
+You can also browse the script's documentation by typing:
+```
+python3 src/download_all.py --help
+```
+
 
 ---
 
@@ -130,7 +151,7 @@ The script can perform OCR on multiple documents at the time. In particular, it 
 
 The script accepts the following parameters in input:
 ```
-ocr_script.py [-h] [--input_path] [--output_path] [--output_format] [--output_name] [--language_mode]
+ocr_script.py [-h] [--input_path] [--saved_file_path] [--converted_image_output_path] [--output_format] [--language_mode]
                   [--single_language] [--multiple_langs] [--gray_scale] [--remove_noise]
                   [--thresholding] [--dilate] [--erosion] [--edge_detection] [--skew_correction]
                   [--page_segmentation_mode] [--ocr_engine_mode]
@@ -143,13 +164,13 @@ The parameter to pass are described as follows:
   --input_path (string): the path of the local file to be digitised or the local folder containing the files to be digitised;
 ```
 ```
-  --output_path (string, default ''): ONLY TO USE IF THE INPUT SOURCE IS IN .pdf format: specifies the directory in which to save the converted images (one for each of the input pdf pages);
+  --saved_file_path (string, default ''): specifies the directory in which to save the output .txt file;
 ```
 ```
-  --output_format (string, default 'png'): ONLY TO USE IF THE INPUT SOURCE IS IN .pdf format: specifies the format of the conversion from .pdf to image;
+  --output_format (string, default 'png'): ONLY TO BE USED IF THE INPUT SOURCE IS IN .pdf FORMAT: specifies the format of the conversion from .pdf to image;
 ```
 ```
-  --output_name  (string): the name of the digitised text file:
+  --converted_image_output_path (string): ONLY TO BE USED IF THE INPUT SOURCE IS A SINGLE .pdf FORMAT: spcifies the directory in which to save the converted images. In the case of a folder of pdf files the converted images will be created in folders located inside the specified folder;
 ```
 ```
   --language_mode (string: 'mono' or 'multi'): allows to specify if the content to digitise is in one language or multilingual;
@@ -214,7 +235,17 @@ However, here is a quick guide to the PSM parameters:
 | 11        | Sparse text. Find as much text as possible in no particular order.                            |
 | 12        | Sparse text with OSD.                                                                         |
 | 13        | Raw line. Treat the image as a single text line, bypassing hacks that are Tesseract-specific. | 
+---
+# Evaluation and Error Analysis
+This repository also contains files for the evaluation of some resources downloaded OCRised using the software contained in this repository. 
 
+These files were produced using [ocreval](https://github.com/eddieantonio/ocreval) and contain all the detailed error and accuracy information about the OCR of some samples of resources compared to manually annotated ground-truth files.
+
+The evaluation files can be found in the [evaluation](evaluation) folder, and are in turn divided in two more folders:
+* the [ground_truth](evaluation/ground_truth) folder contains the manually annotated filed for evaluating the automatically generated ones;
+* the [accuracy](evaluation/accuracy) folder contains the files generated with ocreval and contain the error analysis logs.
+
+---
 # License
 
 MIT License
