@@ -12,6 +12,7 @@ def get_search_result(search_url: str):
     titles = []
     years = []
     authors = []
+    print('\nRETRIEVING SEARCH RESULTS\n')
     for pag_num in range(1000):
         pag_url = search_url + str(pag_num)
         page = requests.get(pag_url)
@@ -87,6 +88,7 @@ def download_pdf(resource_id, split_id, download_path):
     if download_url:
         if f'{split_id}.pdf' in os.listdir(download_path):
             print(f'FILE ALREADY IN DIRECTORY, SKIPPING {download_url}')
+            return True
             pass
         else:
             try:
@@ -95,8 +97,10 @@ def download_pdf(resource_id, split_id, download_path):
                 pdf = open(f'{download_path}/{split_id}.pdf', 'wb')
                 pdf.write(file.content)
                 pdf.close()
+                return True
             except requests.exceptions.ReadTimeout:
                 print(f'DOWNLOAD FAILED, NOT DOWNLOADED {split_id}.pdf')
+                return False
                 pass
 
 
@@ -111,23 +115,17 @@ if __name__ == '__main__':
 
     ids_entire, ids_splitted, titles, years, authors, resources = get_search_result(args.search_url)
 
-    # with open(args.output_path+'/books_metadata.tsv', 'w') as fw:
-    # #with open('books_metadata.tsv', 'w') as fw:
-    #     writer = csv.writer(fw, delimiter='\t')
-    #     writer.writerow(['id_entire', 'id_splitted', 'author', 'title', 'year'])
-    for i, resource_page in enumerate(resources):
-        for i2, music_resource in enumerate(resource_page):
-            id_entire = ids_entire[i][i2]
-            id_splitted = ids_splitted[i][i2]
-            title = titles[i][i2]
-            year = years[i][i2]
-            author = authors[i][i2]
-            resource = resources[i][i2]
-            download_pdf(id_entire, id_splitted, args.output_path)
-            # writer.writerow([id_entire, id_splitted, author, title, year])
-            # path = create_path(id_splitted, args.output_path)
-            # path = create_path('',id_splitted)
-            # download_images(music_resource, title,
-            #                 'http://www.internetculturale.it/jmms/objdownload?id=oai%3A',
-            #                 '&resource=img&mode=raw&start=0&offset=1',
-            #                 path)
+    with open(f'{args.output_path}/books_metadata.tsv', 'w') as fw:
+        writer = csv.writer(fw, delimiter='\t')
+        writer.writerow(['id_entire', 'id_splitted', 'author', 'title', 'year', 'downloaded'])
+        for i, resource_page in enumerate(resources):
+            for i2, music_resource in enumerate(resource_page):
+                print(music_resource)
+                id_entire = ids_entire[i][i2]
+                id_splitted = ids_splitted[i][i2]
+                title = titles[i][i2]
+                year = years[i][i2]
+                author = authors[i][i2]
+                resource = resources[i][i2]
+                downloaded = download_pdf(id_entire, id_splitted, args.output_path)
+                writer.writerow([id_entire, id_splitted, author, title, year, downloaded])
