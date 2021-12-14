@@ -1,4 +1,5 @@
 import csv
+import re
 
 from internet_culturale_scraper import *
 import argparse
@@ -12,8 +13,8 @@ def get_search_result(search_url: str):
     titles = []
     years = []
     authors = []
-    print('\nRETRIEVING SEARCH RESULTS\n')
-    for pag_num in range(1000):
+    print('\nRETRIEVING SEARCH RESULTS...\n')
+    for pag_num in range(2):
         pag_url = search_url + str(pag_num)
         page = requests.get(pag_url)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -23,7 +24,7 @@ def get_search_result(search_url: str):
             years.append([r.find(class_='block-item-text').find(class_='dc_issued').text.strip() for r in results])
             resources.append([r.find(class_='block-item-img').find('a')['href'] for r in results])
             authors.append([r.find(class_='block-item-text').find(class_='dc_creator').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') is not None else '' for r in results])
-            ids_ = [r.find(class_='block-item-text').find(class_='dc_id').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') is not None else '' for r in results]
+            ids_ = [r.find(class_='block-item-text').find(class_='dc_id').text.strip() if r.find(class_='block-item-text').find(class_='dc_id').text.strip() is not None else '' for r in results]
             ids_entire.append(ids_)
             ids__ = []
             for id_ in ids_:
@@ -47,7 +48,7 @@ def create_path(title, base_path):
     return f"{base_path}/{title}"
 
 
-def download_images(image_link: str, title : str, start_resource_url: str, end_resource_url: str, base_path: str = ''):
+def download_images(image_link: str, start_resource_url: str, end_resource_url: str, base_path: str = ''):
     image_link = image_link.replace('&fulltext=1', '').split('id=oai%3A')[-1].replace('+', '%20')
     base_url = f'{start_resource_url}{image_link}{end_resource_url}'
     image_url = base_url.split('case=')[0] + 'teca=' + base_url.split('Level2')[1]
@@ -108,7 +109,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # check that the search_url contains the '&pag=' but NOT the page number
-    parser.add_argument('--search_url', type=str, default='https://www.internetculturale.it/it/16/search?q=musica&instance=magindice&__meta_typeTipo=testo+a+stampa&__meta_typeLivello=monografia&pag=')
+    parser.add_argument('--search_url', type=str, default='https://www.internetculturale.it/it/16/search?q=musica&instance=magindice&__meta_typeTipo=testo+a+stampa&__meta_typeLivello=monografia&pag=1')
     parser.add_argument('--output_path', type=str, default='/Users/andreapoltronieri/Documents/Polifonia/WP4/')
 
     args = parser.parse_args()
@@ -120,7 +121,6 @@ if __name__ == '__main__':
         writer.writerow(['id_entire', 'id_splitted', 'author', 'title', 'year', 'downloaded'])
         for i, resource_page in enumerate(resources):
             for i2, music_resource in enumerate(resource_page):
-                print(music_resource)
                 id_entire = ids_entire[i][i2]
                 id_splitted = ids_splitted[i][i2]
                 title = titles[i][i2]
