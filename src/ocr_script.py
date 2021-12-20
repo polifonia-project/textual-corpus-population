@@ -188,7 +188,7 @@ if __name__ == "__main__":
     # File parameters
     parser.add_argument('--input_path',
                         type=str,
-                        default='/Users/andreapoltronieri/PycharmProjects/ocr/test_pdf/cde.pdf')  # accepts pdf files, image files and image folders
+                        default='/Users/andreapoltronieri/PycharmProjects/ocr/test_pdf/10-1901')  # accepts pdf files, image files and image folders
     parser.add_argument('--saved_file_path',
                         type=str,
                         default='/Users/andreapoltronieri/PycharmProjects/ocr/result/')  # only needed if the input format is pdf
@@ -205,7 +205,7 @@ if __name__ == "__main__":
                         default='mono')  # "multi" if working with more tha n one language, "mono" otherwise
     parser.add_argument('--single_language',
                         type=str,
-                        default='eng')  # needed if working with --language_mode = "single"
+                        default='spa')  # needed if working with --language_mode = "single"
     parser.add_argument('--multiple_langs',
                         type=str,
                         default='fra+eng+ita+spa+deu')  # needed if working with --language_mode = "multi"
