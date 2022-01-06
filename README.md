@@ -1,12 +1,13 @@
 ---
 id: textual-corpus-population
 name: Textual Corpus Population
-brief-description: Polifonia downloader and digitiser of textual data.
+description: Polifonia downloader and digitiser of textual data.
 type: Repository
 release-date: 07-12-2021
 release-number: v0.1
 work-package: WP4
-pilot: MusicBo
+pilot:
+  - MusicBo
 keywords:
   - ocr
   - image
@@ -14,7 +15,7 @@ keywords:
   - textual data
 changelog: n/a.
 licence: MIT
-release link: n/a.
+release-link: n/a.
 image: n/a.
 logo: n/a.
 demo: n/a
