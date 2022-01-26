@@ -8,7 +8,9 @@ import numpy as np
 import pytesseract
 from PIL import Image
 from pdf2image import convert_from_path
+from dotenv import load_dotenv
 
+load_dotenv()
 Image.MAX_IMAGE_PIXELS = 933120000
 SUPPORTED_IMAGE_FORMAT = ['.png', '.jpg', '.jpeg', '.tiff', '.gif']
 
@@ -56,7 +58,9 @@ def pdf_to_img(file_path, final_path, out_format='png'):
 
 
 def image_processing(input_path, gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection,
-                     skew_correction):
+                     skew_correction, see_image):
+    print(input_path, gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection,
+                     skew_correction, see_image)
     kernel = np.ones((5, 5), np.uint8)
     image = cv2.imread(input_path)
 
@@ -84,8 +88,9 @@ def image_processing(input_path, gray_scale, remove_noise, thresholding, dilate,
         center = (w // 2, h // 2)
         M = cv2.getRotationMatrix2D(center, angle, 1.0)
         image = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
-    # plt.imshow(image, 'gray')
-    # plt.show()
+    if see_image:
+        cv2.imwrite(f'eval_files/{os.path.basename(input_path)[0]}_show{os.path.splitext(input_path)[1]}', image)
+        print('SAVED PROCESSED IMAGE')
     return image
 
 
@@ -99,7 +104,7 @@ def ocr(processed_image, language_mode, psm, oem, multilang="", language=""):
         if not oem:
             raise NameError("OCR_ENGINE_MODE not set")
         custom_config = r'--oem {} --psm {}'.format(oem, psm)
-        custom_config2 = r'--oem 3 --psm 1'
+        # custom_config2 = r'--oem 3 --psm 1'
         ocr_output = pytesseract.image_to_string(processed_image, config=custom_config, lang=language)
     else:
         raise NameError("Language Setting Error")
@@ -129,7 +134,8 @@ def ocrise_folder(folder_path, saved_file_path, output_format):
                                      dilate=args.dilate,
                                      erosion=args.erosion,
                                      edge_detection=args.edge_detection,
-                                     skew_correction=args.skew_correction)
+                                     skew_correction=args.skew_correction,
+                                     see_image=args.see_image)
                 if len([x for x in files if '-' in x]) > 0 and len(file.split('-')[:-1]) > 1:
                     if f"{'-'.join(file.split('-')[:-1])}.txt" not in [f for f in os.listdir(saved_file_path)]:
                         save_to_txt(f"{saved_file_path}/{'-'.join(file.split('-')[:-1])}.txt", text)
@@ -142,6 +148,7 @@ def ocrise_folder(folder_path, saved_file_path, output_format):
                 print(f'FILE FORMAT NOT SUPPORTED (yet!), SKIPPING {file}')
         if len(ocr_all) > 0:
             save_to_txt(f'{saved_file_path}/{path.split("/")[-1]}.txt', ocr_all)
+            print(f'SAVED FILE {saved_file_path}/{path.split("/")[-1]}.txt')
 
 
 def ocrise_pdf(converted_image_path, filename, output_folder):
@@ -160,17 +167,18 @@ def ocrise_pdf(converted_image_path, filename, output_folder):
                                  dilate=args.dilate,
                                  erosion=args.erosion,
                                  edge_detection=args.edge_detection,
-                                 skew_correction=args.skew_correction)
+                                 skew_correction=args.skew_correction,
+                                 see_image=args.see_image)
             ocr_all_pdf = ocr_all_pdf + text
     save_to_txt(f'{output_folder}/{filename}.txt', ocr_all_pdf)
 
 
 def ocrise_single(input_file, language_mode, single_lang, multiple_langs, psm, oem,
-                  gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection, skew_correction):
+                  gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection, skew_correction, see_image):
     print("PROCESSING IMAGE: {}".format(input_file))
 
     image = image_processing(input_file, gray_scale, remove_noise, thresholding, dilate, erosion, edge_detection,
-                             skew_correction)
+                             skew_correction, see_image)
     image_ocr = ocr(image, language_mode, psm, oem, multiple_langs, single_lang)
 
     return image_ocr
@@ -178,7 +186,7 @@ def ocrise_single(input_file, language_mode, single_lang, multiple_langs, psm, o
 
 def save_to_txt(out_name: str, ocr_res: str):
     f = open(out_name, 'w')
-    f.write(ocr_res)
+    f.write(str(ocr_res.encode('utf-8')))
     f.close()
 
 
@@ -188,42 +196,45 @@ if __name__ == "__main__":
     # File parameters
     parser.add_argument('--input_path',
                         type=str,
-                        default='/Users/andreapoltronieri/PycharmProjects/ocr/test_pdf/10-1901')  # accepts pdf files, image files and image folders
+                        default=os.getenv('INPUT_PATH'))  # accepts pdf files, image files and image folders
     parser.add_argument('--saved_file_path',
                         type=str,
-                        default='/Users/andreapoltronieri/PycharmProjects/ocr/result/')  # only needed if the input format is pdf
+                        default=os.getenv('OUTPUT_PATH'))  # only needed if the input format is pdf
     parser.add_argument('--converted_image_output_path',
                         type=str,
-                        default='/Users/andreapoltronieri/PycharmProjects/ocr/test_pdf/')  # only needed if the input format is pdf
+                        default=os.getenv('CONVERTED_IMAGE_PATH'))  # only needed if the input format is pdf
     parser.add_argument('--output_format',
                         type=str,
-                        default='png')  # only needed if the input format is pdf
+                        default=os.getenv('OUTPUT_FORMAT'))  # only needed if the input format is pdf
 
     # Language parameters
     parser.add_argument('--language_mode',
                         type=str,
-                        default='mono')  # "multi" if working with more tha n one language, "mono" otherwise
+                        default=os.getenv('LANGUAGE_MODE'))  # "multi" if working with more tha n one language, "mono" otherwise
     parser.add_argument('--single_language',
                         type=str,
-                        default='spa')  # needed if working with --language_mode = "single"
+                        default=os.getenv('SINGLE_LANGUAGE'))  # needed if working with --language_mode = "single"
     parser.add_argument('--multiple_langs',
                         type=str,
-                        default='fra+eng+ita+spa+deu')  # needed if working with --language_mode = "multi"
+                        default=os.getenv('MULTIPLE_LANGUAGES'))  # needed if working with --language_mode = "multi"
 
     # Preprocessing parameters
-    parser.add_argument('--gray_scale', type=bool, default=True)
-    parser.add_argument('--remove_noise', type=bool, default=False)
-    parser.add_argument('--thresholding', type=bool, default=True)
-    parser.add_argument('--dilate', type=bool, default=False)
-    parser.add_argument('--erosion', type=bool, default=False)
-    parser.add_argument('--edge_detection', type=bool, default=False)
-    parser.add_argument('--skew_correction', type=bool, default=False)
+    parser.add_argument('--gray_scale', type=bool, default=os.getenv('GRAY_SCALE'))
+    parser.add_argument('--remove_noise', type=bool, default=os.getenv('REMOVE_NOISE'))
+    parser.add_argument('--thresholding', type=bool, default=os.getenv('THRESHOLDING'))
+    parser.add_argument('--dilate', type=bool, default=os.getenv('DILATE'))
+    parser.add_argument('--erosion', type=bool, default=os.getenv('EROSION'))
+    parser.add_argument('--edge_detection', type=bool, default=os.getenv('EDGE_DETECTION'))
+    parser.add_argument('--skew_correction', type=bool, default=os.getenv('SKEW_CORRECTION'))
+    parser.add_argument('--see_image', type=bool, default=os.getenv('SEE_IMAGE'))
 
     # OCR parameters
-    parser.add_argument('--page_segmentation_mode', type=int, default=1)
-    parser.add_argument('--ocr_engine_mode', type=int, default=3)
+    parser.add_argument('--page_segmentation_mode', type=int, default=os.getenv('PAGE_SEGMENTATION_MODE'))
+    parser.add_argument('--ocr_engine_mode', type=int, default=os.getenv('OCR_ENGINE_MODE'))
 
     args = parser.parse_args()
+
+    print(args.skew_correction, os.getenv('SKEW_CORRECTION'))
 
     file_name, extension = file_info(args.input_path)
     if extension == ".pdf" and not os.path.isdir(args.input_path):
@@ -246,5 +257,7 @@ if __name__ == "__main__":
                              dilate=args.dilate,
                              erosion=args.erosion,
                              edge_detection=args.edge_detection,
-                             skew_correction=args.skew_correction)
+                             skew_correction=args.skew_correction,
+                             see_image=args.see_image)
         save_to_txt(f'{args.saved_file_path}/{file_name}.txt', text)
+        print(f'SAVED FILE {args.saved_file_path}/{file_name}.txt')

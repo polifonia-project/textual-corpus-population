@@ -39,6 +39,28 @@ The repository contains two main types of code:
 * OCR script for digitising the downloaded files. 
 
 ---
+## Running Docker Image
+
+You can launch the `ocr_script` by launching a Docker container based on the image created using the Dockerfile available in this repository.
+To launch the Docker, you will need to:
+
+Pull the Docker Image:
+```
+docker pull andreamust/ocr-app:0.3
+```
+Create a folder containing the files from ocrise and download the `.env` file from this folder. The paths to these two items should be specified in the `docker run` command, and should replace the placeholders `<path_to_input_folder>` and `<path_to_.env_file>`. 
+
+Run the Docker Container:
+```
+docker run --name ocr-script --rm -v <path_to_input_folder>:/app/eval_files -it --env-file <path_to_.env_file> andreamust/ocr-app:0.3
+```
+
+Both the `input folder` and the `.env` file will be Docker Bind Mounts will hence allow to store files and change parameters on the go.
+
+For the parameter accepted in the `.env` file, please refer to the documentation below. 
+Notice that the `.env` file handles boolean parameters differently, i.e. you only need to enter any character to indicate `True`, and leave the field blank to indicate `False`. 
+Also, the file does not accept whitespace, and strings must be entered without quotes.
+
 
 ## Information on installation and setup
 For running all the scripts you need to have Python (3.6+, version 3.9 suggested) and pip3 installed on your machine.
