@@ -1,5 +1,5 @@
 ---
-id: textual-corpus-population
+component-id: textual-corpus-population
 name: Textual Corpus Population
 description: Polifonia downloader and digitiser of textual data.
 type: Repository
