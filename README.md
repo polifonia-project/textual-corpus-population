@@ -31,7 +31,7 @@ related-components:
 bibliography: n/a
 ---
 
-# Polifonia OCR
+# Textual Corpus Population
 
 This repository contains the code for downloading and digitising documents used as a corpus for the [Polifonia Project](https://polifonia-project.eu/).
 The repository contains two main types of code:
