@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 TIMEOUT = 20
 
-
+'''
 def get_search_result(search_url: str):
     ids_entire = []
     ids_splitted = []
@@ -41,7 +41,39 @@ def get_search_result(search_url: str):
         else:
             break
     return [ids_entire, ids_splitted, titles, years, authors, resources]
+'''
 
+search_url = 'https://www.internetculturale.it/it/16/search?q=musica&instance=magindice&__meta_typeTipo=testo+a+stampa&__meta_typeLivello=monografia&pag=1'
+ids_entire = []
+ids_splitted = []
+resources = []
+titles = []
+years = []
+authors = []
+print('\nRETRIEVING SEARCH RESULTS...\n')
+for pag_num in range(1000):
+    pag_url = search_url + str(pag_num)
+    page = requests.get(pag_url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    results = [x for x in soup.find_all(class_='block-item-search-result')]
+    if len(results) > 0:
+        titles.append([r.find(class_='block-item-text').find(class_='block-title dc_title').text.strip() for r in results])
+        years.append([r.find(class_='block-item-text').find(class_='dc_issued').text.strip() for r in results])
+        resources.append([r.find(class_='block-item-img').find('a')['href'] for r in results])
+        authors.append([r.find(class_='block-item-text').find(class_='dc_creator').text.strip() if r.find(class_='block-item-text').find(class_='dc_creator') is not None else '' for r in results])
+        ids_ = [r.find(class_='block-item-text').find(class_='dc_id').text.strip() if r.find(class_='block-item-text').find(class_='dc_id').text.strip() is not None else '' for r in results]
+        ids_entire.append(ids_)
+        ids__ = []
+        for id_ in ids_:
+            if '\\\\' in id_:
+                id_ = id_.split('\\\\')[-1]
+            else:
+                id_ = id_.split(':')[-1]
+            ids__.append(id_)
+        ids_splitted.append(ids__)
+    else:
+        break
+print([ids_entire, ids_splitted, titles, years, authors, resources])
 
 def create_path(title, base_path):
     title = title.replace(' ', '_').replace('/', '-')
