@@ -114,50 +114,42 @@ def ocr(processed_image, language_mode, psm, oem, multilang="", language=""):
 def ocrise_folder(folder_path, saved_file_path, output_format):
     ocr_all, ocr_all_pdf = '', ''
     for path, dirs, files in os.walk(folder_path):
-        if len(dirs) == 0:
-            for file in sorted(files, key=lambda f: int(re.sub('\D', '1', f))):
-                filename, file_extension = os.path.splitext(file)
-                if file_extension == '.pdf':
-                    # folder created inside the same folder as the input one.
-                    print(f'The file {filename} is a .pdf file. Converting to image in {output_format} format.')
-                    converted_image_path = pdf_to_img(f'{path}/{file}', folder_path, output_format)
-                    ocrise_pdf(converted_image_path, filename, saved_file_path)
-                elif file_extension in SUPPORTED_IMAGE_FORMAT:
-                    text = ocrise_single(input_file=f'{path}/{file}',
-                                         language_mode=args.language_mode,
-                                         single_lang=args.single_language,
-                                         multiple_langs=args.multiple_langs,
-                                         psm=args.page_segmentation_mode,
-                                         oem=args.ocr_engine_mode,
-                                         gray_scale=args.gray_scale,
-                                         remove_noise=args.remove_noise,
-                                         thresholding=args.thresholding,
-                                         dilate=args.dilate,
-                                         erosion=args.erosion,
-                                         edge_detection=args.edge_detection,
-                                         skew_correction=args.skew_correction,
-                                         see_image=args.see_image)
-                    if len([x for x in files if '_' in x]) > 0:
-                        if f"{(path.split('/')[-1])}.txt" not in [f for f in os.listdir(saved_file_path)]:
-                            save_to_txt(f"{saved_file_path}/{(path.split('/')[-1])}.txt", text)
-                        elif f"{(path.split('/')[-1])}.txt" in [f for f in os.listdir(saved_file_path)]:
-                            with open(f"{saved_file_path}/{(path.split('/')[-1])}.txt", "a") as existing_file:
-                                existing_file.write(f"\n\n\n{text}")  # print(filename, file_extension)
-                    elif len([x for x in files if '-' in x]) > 0 and len(file.split('-')[:-1]) > 1:
-                        if f"{'-'.join(file.split('-')[:-1])}.txt" not in [f for f in os.listdir(saved_file_path)]:
-                            save_to_txt(f"{saved_file_path}/{'-'.join(file.split('-')[:-1])}.txt", text)
-                        elif f"{'-'.join(file.split('-')[:-1])}.txt" in [f for f in os.listdir(saved_file_path)]:
-                            with open(f"{saved_file_path}/{'-'.join(file.split('-')[:-1])}.txt", "a") as existing_file:
-                                existing_file.write(f"\n\n\n{text}")
-                    else:
-                        ocr_all = ocr_all + text
+        for file in sorted(files, key=lambda f: int(re.sub('\D', '1', f))):
+            filename, file_extension = os.path.splitext(file)
+            if file_extension == '.pdf':
+                # folder created inside the same folder as the input one.
+                print(f'The file {filename} is a .pdf file. Converting to image in {output_format} format.')
+                converted_image_path = pdf_to_img(f'{path}/{file}', folder_path, output_format)
+                ocrise_pdf(converted_image_path, filename, saved_file_path)
+            elif file_extension in SUPPORTED_IMAGE_FORMAT:
+                text = ocrise_single(input_file=f'{path}/{file}',
+                                     language_mode=args.language_mode,
+                                     single_lang=args.single_language,
+                                     multiple_langs=args.multiple_langs,
+                                     psm=args.page_segmentation_mode,
+                                     oem=args.ocr_engine_mode,
+                                     gray_scale=args.gray_scale,
+                                     remove_noise=args.remove_noise,
+                                     thresholding=args.thresholding,
+                                     dilate=args.dilate,
+                                     erosion=args.erosion,
+                                     edge_detection=args.edge_detection,
+                                     skew_correction=args.skew_correction,
+                                     see_image=args.see_image)
+                if len([x for x in files if '-' in x]) > 0 and len(file.split('-')[:-1]) > 1:
+                    if f"{'-'.join(file.split('-')[:-1])}.txt" not in [f for f in os.listdir(saved_file_path)]:
+                        save_to_txt(f"{saved_file_path}/{'-'.join(file.split('-')[:-1])}.txt", text)
+                    elif f"{'-'.join(file.split('-')[:-1])}.txt" in [f for f in os.listdir(saved_file_path)]:
+                        with open(f"{saved_file_path}/{'-'.join(file.split('-')[:-1])}.txt", "a") as existing_file:
+                            existing_file.write(f"\n\n\n{text}")
                 else:
-                    print(f'FILE FORMAT NOT SUPPORTED (yet!), SKIPPING {file}')
-            if len(ocr_all) > 0:
-                save_to_txt(f'{saved_file_path}/{path.split("/")[-1]}.txt', ocr_all)
-                print(f'SAVED FILE {saved_file_path}/{path.split("/")[-1]}.txt')
-        else:
-            pass
+                    ocr_all = ocr_all + text
+            else:
+                print(f'FILE FORMAT NOT SUPPORTED (yet!), SKIPPING {file}')
+        if len(ocr_all) > 0:
+            save_to_txt(f'{saved_file_path}/{path.split("/")[-1]}.txt', ocr_all)
+            print(f'SAVED FILE {saved_file_path}/{path.split("/")[-1]}.txt')
+
 
 def ocrise_pdf(converted_image_path, filename, output_folder):
     ocr_all_pdf = ''
