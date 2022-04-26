@@ -20,7 +20,6 @@ search_url_pt2 = '&maxperpage=50&coll=boeken'
 download_path = '/Users/arianna/Desktop/Polifonia/WP4/D4_2/prove_download/delpher_books_nl/'
 
 persistent_urls = []
-
 for pag_num in range(955):
     pag_url = search_url_pt1 + str(pag_num) + search_url_pt2
     page = driver.get(pag_url)
