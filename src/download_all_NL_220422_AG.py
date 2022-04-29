@@ -13,12 +13,10 @@ import time
 
 TIMEOUT = 20
 
-search_url_pt1 = 'https://www.delpher.nl/nl/boeken/results?query=muziek&'
-search_url_pt2 = '&maxperpage=50&coll=boeken'
-download_path = '/Users/arianna/Desktop/Polifonia/WP4/D4_2/prove_download/delpher_books_nl_290422/'
+download_path = '/Users/arianna/Desktop/Polifonia/WP4/D4_2/prove_download/delpher_books_nl_300922/'
 
 from_tsv_to_crawling = []
-with open("df_for_crawling.tsv") as file:
+with open("from_tsv_to_crawling_input.tsv") as file:
   for line in file:
     l=line.split('\t')
     from_tsv_to_crawling.append(l)
