@@ -25,7 +25,7 @@ with open("df_for_crawling.tsv") as file:
 
 for persistent_url in from_tsv_to_crawling:
     resource_id = persistent_url[0].replace(':', '_')
-    download_url = persistent_url[1]
+    download_url = persistent_url[1][:-1]
     if download_url:
         if f'{resource_id}.pdf' in os.listdir(download_path):
             print(f'FILE ALREADY IN DIRECTORY, SKIPPING {download_url}')
