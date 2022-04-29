@@ -8,12 +8,8 @@ import csv
 
 import requests
 from bs4 import BeautifulSoup
-#driver = webdriver.Chrome(ChromeDriverManager().install())
 
 import time
-#from selenium import webdriver
-#from webdriver_manager.chrome import ChromeDriverManager
-#driver = webdriver.Chrome(ChromeDriverManager().install())
 
 TIMEOUT = 20
 
