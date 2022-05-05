@@ -3,7 +3,7 @@ import requests
 
 TIMEOUT = 20
 
-download_path = '/Users/arianna/Desktop/Polifonia/WP4/D4_2/prove_download/delpher_books_nl_300922_5/'
+download_path = '/Users/arianna/Desktop/Polifonia/WP4/D4_2/prove_download/delpher_books_nl_050522_1/'
 
 from_tsv_to_crawling = []
 with open("from_tsv_to_crawling_input.tsv") as file:
@@ -12,7 +12,7 @@ with open("from_tsv_to_crawling_input.tsv") as file:
     from_tsv_to_crawling.append(l)
 
 for persistent_url in from_tsv_to_crawling:
-    resource_id = persistent_url[0].replace(':', '_')
+    resource_id = persistent_url[0].replace(':', '_').replace('/', '_')
     download_url = None
     if 'dbnl' in resource_id:
         persistent_url_dbnl = persistent_url[0].split("=")[-1].split('_')[-1]
